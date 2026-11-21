@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Stato iniziale (nessuna traccia)
-const IDLE = { id: null, playing: false, progress: 0, time: "0:00", error: false };
+// loading: audio in caricamento (server lento o connessione debole)
+const IDLE = { id: null, playing: false, loading: false, progress: 0, time: "0:00", error: false };
 
 // Formatta i secondi in m:ss
 function formatAudioTime(seconds) {
@@ -37,7 +38,7 @@ export function useAudioPlayer() {
     setState((current) => ({ ...current, playing: true, error: false }));
     audio.play().catch(() => {
       if (audioRef.current !== audio) return;
-      setState((current) => ({ ...current, id, playing: false, error: true }));
+      setState((current) => ({ ...current, id, playing: false, loading: false, error: true }));
     });
   }, []);
 
@@ -52,7 +53,7 @@ export function useAudioPlayer() {
           play(active, id);
         } else {
           active.pause();
-          setState((current) => ({ ...current, playing: false }));
+          setState((current) => ({ ...current, playing: false, loading: false }));
         }
         return;
       }
@@ -70,14 +71,21 @@ export function useAudioPlayer() {
           Number.isFinite(audio.duration) && audio.duration > 0 ? (audio.currentTime / audio.duration) * 100 : 0;
         setState((value) => ({ ...value, progress, time: formatAudioTime(audio.currentTime) }));
       });
+      // Caricamento: rotellina finché non parte
+      audio.addEventListener("waiting", () => {
+        if (isCurrent() && !audio.paused) setState((value) => ({ ...value, loading: true }));
+      });
+      audio.addEventListener("playing", () => {
+        if (isCurrent()) setState((value) => ({ ...value, loading: false }));
+      });
       audio.addEventListener("ended", () => {
-        if (isCurrent()) setState((value) => ({ ...value, playing: false, progress: 0, time: "0:00" }));
+        if (isCurrent()) setState((value) => ({ ...value, playing: false, loading: false, progress: 0, time: "0:00" }));
       });
       audio.addEventListener("error", () => {
-        if (isCurrent()) setState((value) => ({ ...value, playing: false, error: true }));
+        if (isCurrent()) setState((value) => ({ ...value, playing: false, loading: false, error: true }));
       });
 
-      setState({ ...IDLE, id });
+      setState({ ...IDLE, id, loading: true });
       play(audio, id);
     },
     [state.id, play, stop],

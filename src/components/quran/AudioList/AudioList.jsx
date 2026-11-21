@@ -52,7 +52,7 @@ const AudioCard = memo(function AudioCard({ surah, reciter, track, onToggle, onS
           aria-label={`Posizione audio di ${title}`}
           onChange={(event) => onSeek(id, event.target.value)}
         />
-        <span className="audio-time">{track.error ? "Audio non disponibile" : track.time}</span>
+        <span className="audio-time">{track.error ? "Audio non disponibile" : track.loading ? "Caricamento…" : track.time}</span>
       </div>
     </article>
   );

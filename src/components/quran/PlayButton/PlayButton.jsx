@@ -9,9 +9,10 @@ function playButtonLabel(track, label) {
 export function PlayButton({ track, label, onClick, className }) {
   return (
     <button
-      className={`${className}${track.playing ? " playing" : ""}`}
+      className={`${className}${track.playing ? " playing" : ""}${track.loading ? " loading" : ""}`}
       type="button"
       aria-pressed={track.playing}
+      aria-busy={track.loading || undefined}
       aria-label={playButtonLabel(track, label)}
       onClick={onClick}
     >
