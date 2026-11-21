@@ -5,7 +5,6 @@
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: var(--space-4);
   width: 100%;
   padding: var(--space-5);
@@ -33,12 +32,20 @@
 }
 
 /* =====BUSSOLA===== */
-.compass {
+/* Contenitore: tiene la tacca, che sta fuori dal cerchio */
+.compass-wrap {
   position: relative;
   flex-shrink: 0;
   width: min(300px, 100%);
-  aspect-ratio: 1;
   margin-top: var(--space-2); /* spazio per la tacca */
+}
+/* overflow hidden: la rosa è un quadrato e girando gli angoli uscirebbero
+   dal cerchio (e creerebbero lo scroll orizzontale) */
+.compass {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 50%;
   background: var(--surface);
@@ -215,8 +222,10 @@
 .qibla-button {
   align-self: stretch;
 }
+/* Sempre in fondo alla card, anche quando sparisce il pulsante */
 .compass-help {
   max-width: 320px;
+  margin-top: auto;
   font-size: var(--fs-sm);
 }
 .compass-help summary {

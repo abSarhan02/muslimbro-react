@@ -73,35 +73,37 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
       </div>
       <p className="qibla-location">{location ? location.name : "In attesa della posizione"}</p>
 
-      <div className="compass" role="img" aria-label={compassLabel}>
-        {/* Tacca fissa in alto: è la direzione del telefono */}
+      <div className="compass-wrap">
+        {/* Tacca fissa in alto: è la direzione del telefono (fuori dal cerchio) */}
         <span className="compass-pointer" aria-hidden="true"></span>
 
-        <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-rotation}deg)` }}>
-          <span className="compass-north">N</span>
-          <span className="compass-east">E</span>
-          <span className="compass-south">S</span>
-          <span className="compass-west">O</span>
-          <span className="compass-tick compass-tick-a"></span>
-          <span className="compass-tick compass-tick-b"></span>
-          <span className="compass-tick compass-tick-c"></span>
-          <span className="compass-tick compass-tick-d"></span>
+        <div className="compass" role="img" aria-label={compassLabel}>
+          <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-rotation}deg)` }}>
+            <span className="compass-north">N</span>
+            <span className="compass-east">E</span>
+            <span className="compass-south">S</span>
+            <span className="compass-west">O</span>
+            <span className="compass-tick compass-tick-a"></span>
+            <span className="compass-tick compass-tick-b"></span>
+            <span className="compass-tick compass-tick-c"></span>
+            <span className="compass-tick compass-tick-d"></span>
 
-          {/* Kaaba sulla sua direzione da nord */}
-          {bearing !== null && (
-            <span className="compass-kaaba" style={{ transform: `rotate(${bearing}deg)` }}>
-              <span></span>
-            </span>
-          )}
-        </div>
+            {/* Kaaba sulla sua direzione da nord */}
+            {bearing !== null && (
+              <span className="compass-kaaba" style={{ transform: `rotate(${bearing}deg)` }}>
+                <span></span>
+              </span>
+            )}
+          </div>
 
-        <div
-          className="compass-needle"
-          style={bearing === null ? undefined : { transform: `rotate(${bearing - rotation}deg)` }}
-        >
-          <span></span>
+          <div
+            className="compass-needle"
+            style={bearing === null ? undefined : { transform: `rotate(${bearing - rotation}deg)` }}
+          >
+            <span></span>
+          </div>
+          <span className="compass-center"></span>
         </div>
-        <span className="compass-center"></span>
       </div>
 
       <p className="qibla-status" aria-live="polite">
