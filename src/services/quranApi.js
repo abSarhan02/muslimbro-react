@@ -1,3 +1,4 @@
+import { DEFAULT_RECITER } from "../data/reciters.js";
 import { fetchJSON } from "./fetchJSON.js";
 
 const BASE_URL = "https://api.alquran.cloud/v1";
@@ -48,8 +49,8 @@ export function getSurah(number) {
 }
 
 // Audio della sura (numero a 3 cifre: 001, 002...)
-export function surahAudioUrl(number) {
-  return `https://download.quranicaudio.com/quran/abdulbaset_mujawwad/${String(number).padStart(3, "0")}.mp3`;
+export function surahAudioUrl(number, reciter = DEFAULT_RECITER) {
+  return `https://download.quranicaudio.com/quran/${reciter.folder}/${String(number).padStart(3, "0")}.mp3`;
 }
 
 // Audio del versetto (numero globale)

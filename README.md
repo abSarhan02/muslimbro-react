@@ -8,7 +8,7 @@ Online su [muslimbro.it](https://muslimbro.it).
 
 - **Orari di preghiera** per la tua posizione, con il countdown alla prossima preghiera (dopo Isha mostra il Fajr di domani)
 - **Qibla**: bussola sul telefono con la Kaaba, direzione in gradi e distanza dalla Mecca
-- **Corano**: tutte le 114 sure con testo arabo, traslitterazione, traduzione italiana e audio
+- **Corano**: tutte le 114 sure con testo arabo, traslitterazione, traduzione italiana e audio, con 10 lettori tra cui scegliere
 - **Azkar** del mattino e della sera
 - **Versetto del giorno** in home
 - Tema chiaro e scuro

@@ -5,13 +5,14 @@ import { PlayButton } from "../PlayButton/PlayButton.jsx";
 import "./AudioList.css";
 
 // Lista audio delle sure
-export function AudioList({ surahs, player }) {
+export function AudioList({ surahs, player, reciter }) {
   if (!surahs.length) return <p className="empty-state">Nessuna sura trovata.</p>;
 
   return surahs.map((surah) => (
     <AudioCard
       key={surah.number}
       surah={surah}
+      reciter={reciter}
       track={player.trackState(`surah-${surah.number}`)}
       onToggle={player.toggle}
       onSeek={player.seek}
@@ -20,7 +21,7 @@ export function AudioList({ surahs, player }) {
 }
 
 // memo: si aggiorna solo la card che sta suonando
-const AudioCard = memo(function AudioCard({ surah, track, onToggle, onSeek }) {
+const AudioCard = memo(function AudioCard({ surah, reciter, track, onToggle, onSeek }) {
   const id = `surah-${surah.number}`;
   const title = surahTitle(surah);
 
@@ -39,7 +40,7 @@ const AudioCard = memo(function AudioCard({ surah, track, onToggle, onSeek }) {
           className="play-btn"
           track={track}
           label={title}
-          onClick={() => onToggle(id, surahAudioUrl(surah.number))}
+          onClick={() => onToggle(id, surahAudioUrl(surah.number, reciter))}
         />
         <input
           className="audio-progress"

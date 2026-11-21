@@ -5,10 +5,13 @@ import { TabList, TabPanel } from "../../components/common/Tabs/Tabs.jsx";
 import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
 import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
 import { AudioList } from "../../components/quran/AudioList/AudioList.jsx";
+import { ReciterSelect } from "../../components/quran/ReciterSelect/ReciterSelect.jsx";
 import { SurahList } from "../../components/quran/SurahList/SurahList.jsx";
+import { findReciter } from "../../data/reciters.js";
 import { useAudioPlayer } from "../../hooks/useAudioPlayer.js";
 import { getSurahs } from "../../services/quranApi.js";
 import { filterSurahs } from "../../utils/quranText.js";
+import { readPreference, savePreference, STORAGE_KEYS } from "../../utils/storage.js";
 import "./QuranPage.css";
 
 const TABS = [
@@ -24,7 +27,15 @@ export function QuranPage() {
   const [attempt, setAttempt] = useState(0); // Per il pulsante Riprova
   const [query, setQuery] = useState("");
   const [tab, setTab] = useState("surahs");
+  const [reciter, setReciter] = useState(() => findReciter(readPreference(STORAGE_KEYS.reciter)));
   const player = useAudioPlayer();
+
+  // Cambio lettore e lo salvo
+  function changeReciter(id) {
+    const next = findReciter(id);
+    setReciter(next);
+    savePreference(STORAGE_KEYS.reciter, next.id);
+  }
 
   // Titolo della pagina
   useEffect(() => {
@@ -39,9 +50,9 @@ export function QuranPage() {
       .catch((err) => setError(`Non è stato possibile caricare il Corano. ${err.message}`));
   }, [attempt]);
 
-  // Stop audio se cambio tab o ricerca
+  // Stop audio se cambio tab, ricerca o lettore
   const { stop } = player;
-  useEffect(() => stop(), [tab, query, stop]);
+  useEffect(() => stop(), [tab, query, reciter, stop]);
 
   const filtered = surahs ? filterSurahs(surahs, query) : [];
 
@@ -50,7 +61,7 @@ export function QuranPage() {
   if (error) tabContent = <ErrorMessage message={error} onRetry={() => setAttempt((value) => value + 1)} />;
   else if (!surahs) tabContent = <Loader label="Caricamento delle sure" />;
   else if (tab === "surahs") tabContent = <SurahList surahs={filtered} />;
-  else tabContent = <AudioList surahs={filtered} player={player} />;
+  else tabContent = <AudioList surahs={filtered} player={player} reciter={reciter} />;
 
   return (
     <UtilityLayout
@@ -74,6 +85,7 @@ export function QuranPage() {
           onChange={(event) => setQuery(event.target.value)}
         />
         <TabList label="Modalità del Corano" tabs={TABS} selected={tab} onSelect={setTab} idPrefix="quran" />
+        {tab === "audio" && <ReciterSelect value={reciter.id} onChange={changeReciter} />}
         <TabPanel
           idPrefix="quran"
           selected={tab}

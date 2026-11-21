@@ -79,8 +79,9 @@ export function PrivacyPage() {
               fornire il servizio richiesto (art. 6.1.f GDPR).
             </li>
             <li>
-              <strong>Preferenze</strong>: tema chiaro o scuro (<code>muslimbro-theme</code>) e scelta tra Azkar del
-              mattino e della sera (<code>muslimbro-azkar-mode</code>), salvati solo nel localStorage del tuo browser.
+              <strong>Preferenze</strong>: tema chiaro o scuro (<code>muslimbro-theme</code>), scelta tra Azkar del
+              mattino e della sera (<code>muslimbro-azkar-mode</code>) e lettore del Corano
+              (<code>muslimbro-reciter</code>), salvati solo nel localStorage del tuo browser.
               Sono strumenti tecnici necessari alla funzione che hai scelto e non richiedono consenso.
             </li>
           </ul>

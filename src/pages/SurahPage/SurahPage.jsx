@@ -90,7 +90,7 @@ export function SurahPage() {
             <Link className="reader-back" to="/quran" aria-label="Torna alle sure">
               <span className="reader-back-full">Torna alle sure</span>
               <span className="reader-back-short" aria-hidden="true">
-                ← Sure
+                Sure
               </span>
             </Link>
             <span className="reader-current-surah" title={title}>

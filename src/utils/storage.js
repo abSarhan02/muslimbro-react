@@ -2,6 +2,7 @@
 export const STORAGE_KEYS = {
   theme: "muslimbro-theme",
   azkarMode: "muslimbro-azkar-mode",
+  reciter: "muslimbro-reciter",
 };
 
 // try/catch perché in navigazione privata può dare errore
