@@ -1,6 +1,16 @@
-# Header di sicurezza (Netlify / Cloudflare Pages)
+# Header di sicurezza (Cloudflare Pages)
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(self), accelerometer=(self), gyroscope=(self), magnetometer=(self), camera=(), microphone=(), payment=()
+
+# Il beta e i link pages.dev non devono finire su Google (il sito vero è muslimbro.it)
+https://beta.muslimbro.it/*
+  X-Robots-Tag: noindex
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
