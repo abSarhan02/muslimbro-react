@@ -15,22 +15,36 @@
   border-radius: var(--radius);
   background: var(--sky-surface);
   box-shadow: var(--shadow);
-  transition: box-shadow var(--duration) var(--ease);
+  transition:
+    transform var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
 }
-.azkar-choice:hover {
-  box-shadow:
-    inset 0 0 0 2px var(--cloud),
-    var(--shadow);
+/* Al tocco si "preme" un po' */
+.azkar-choice:active {
+  transform: scale(0.98);
 }
-/* Icona in un cerchio bianco: freccia e orizzonte sono blu come la card */
+/* Icona su sfondo bianco (freccia e orizzonte sono blu come la card) */
 .azkar-choice img {
   flex: 0 0 72px;
   width: 72px;
   height: 72px;
   padding: 12px;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: var(--cloud);
   object-fit: contain;
+  transition: transform var(--duration) var(--ease);
+}
+/* Hover (solo con il mouse): la card si alza un po' e l'icona si ingrandisce */
+@media (hover: hover) {
+  .azkar-choice:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 0 0 2px var(--cloud),
+      0 12px 28px rgb(0 0 0 / 12%);
+  }
+  .azkar-choice:hover img {
+    transform: scale(1.06);
+  }
 }
 .azkar-choice-copy {
   display: flex;
