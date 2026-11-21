@@ -1,3 +1,5 @@
+import geomagnetism from "geomagnetism";
+
 // Coordinate della Kaaba
 const KAABA = { latitude: 21.4225, longitude: 39.8262 };
 const EARTH_RADIUS_KM = 6371;
@@ -32,7 +34,18 @@ export function distanceToKaaba(latitude, longitude) {
   return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(a));
 }
 
-// Direzione del telefono (gradi da nord)
+// Declinazione magnetica: quanto il nord della bussola è spostato dal nord vero
+// (positiva = verso est). Modello WMM della NOAA, calcolato sul telefono.
+// Es. Bologna circa +4°, New York circa -12°
+export function magneticDeclination(latitude, longitude, date = new Date()) {
+  try {
+    return geomagnetism.model(date).point([latitude, longitude]).decl;
+  } catch {
+    return 0; // se qualcosa va storto non correggo
+  }
+}
+
+// Direzione del telefono (gradi dal nord MAGNETICO)
 // iOS usa webkitCompassHeading, gli altri alpha (solo se assoluto)
 // screenAngle: rotazione dello schermo, se il telefono è in orizzontale
 export function headingFromOrientation(event, screenAngle = 0) {

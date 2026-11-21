@@ -41,6 +41,10 @@ Non serve nessun file `_redirects`: se nel progetto non c'è un `404.html`, Clou
 
 Non ci sono variabili d'ambiente né chiavi API: tutte le API usate sono pubbliche.
 
+## Bussola Qibla
+
+La direzione della Qibla è calcolata da nord vero (cerchio massimo verso la Kaaba). La bussola del telefono invece indica il nord magnetico, quindi aggiungo la declinazione magnetica calcolata con [geomagnetism](https://github.com/naturalatlas/geomagnetism) (licenza Apache-2.0), che usa il World Magnetic Model della NOAA (pubblico dominio). Il calcolo avviene sul telefono, senza chiamate esterne. Il modello WMM 2025 vale fino a novembre 2029: prima di allora conviene aggiornare la libreria.
+
 Immagini, favicon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, icone del `site.webmanifest`) e `theme-init.js` stanno in `public/` (es. `/images/og-image.png`, l'anteprima per i social).
 
 ## Struttura

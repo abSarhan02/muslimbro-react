@@ -5,6 +5,7 @@ import {
   calculateQiblaBearing,
   distanceToKaaba,
   headingFromOrientation,
+  magneticDeclination,
   smoothAngle,
 } from "../src/utils/qibla.js";
 
@@ -39,4 +40,10 @@ test("differenza tra angoli e media morbida passano bene da 359 a 0", () => {
   assert.equal(angleDifference(10, 350), -20);
   assert.equal(smoothAngle(null, 90), 90);
   assert.equal(smoothAngle(350, 10, 0.5), 0);
+});
+
+test("declinazione magnetica: Bologna verso est, New York verso ovest", () => {
+  const date = new Date("2026-06-01");
+  assert.equal(Math.round(magneticDeclination(44.49, 11.34, date)), 4);
+  assert.equal(Math.round(magneticDeclination(40.71, -74.0, date)), -12);
 });

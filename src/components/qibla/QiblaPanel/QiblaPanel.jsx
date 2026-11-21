@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useCompass } from "../../../hooks/useCompass.js";
-import { angleDifference, calculateQiblaBearing, distanceToKaaba } from "../../../utils/qibla.js";
+import { angleDifference, calculateQiblaBearing, distanceToKaaba, magneticDeclination } from "../../../utils/qibla.js";
 import "./QiblaPanel.css";
 
 // Entro questi gradi considero il telefono allineato
@@ -10,7 +10,7 @@ const kmFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 0 })
 
 // Bussola Qibla (retro della card orari)
 // bearing: direzione della Mecca da nord
-// heading: dove punta il telefono
+// heading: dove punta il telefono (dal nord vero, già corretto)
 // La rosa gira al contrario del telefono, così la Kaaba resta sulla sua direzione vera
 export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef, onClose }) {
   const compass = useCompass();
@@ -24,9 +24,18 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
     [location],
   );
 
-  const active = compass.heading !== null;
+  // La bussola del telefono punta al nord magnetico, la Qibla è calcolata dal nord vero:
+  // aggiungo la declinazione per passare dal primo al secondo
+  const declination = useMemo(
+    () => (location ? magneticDeclination(location.latitude, location.longitude) : 0),
+    [location],
+  );
+  const heading = compass.heading === null ? null : compass.heading + declination;
+  const rotation = compass.heading === null ? 0 : compass.rotation + declination;
+
+  const active = heading !== null;
   const aligned =
-    active && bearing !== null && Math.abs(angleDifference(compass.heading, bearing)) <= ALIGNED_TOLERANCE;
+    active && bearing !== null && Math.abs(angleDifference(heading, bearing)) <= ALIGNED_TOLERANCE;
 
   // Piccola vibrazione quando ti allinei (solo Android)
   const wasAligned = useRef(false);
@@ -44,7 +53,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
   let compassLabel = "Bussola Qibla: in attesa della posizione";
   if (bearing !== null) {
     compassLabel = `Direzione Qibla ${Math.round(bearing)} gradi da nord`;
-    if (active) compassLabel += `, ${Math.round((bearing - compass.heading + 360) % 360)} gradi rispetto al telefono`;
+    if (active) compassLabel += `, ${Math.round((((bearing - heading) % 360) + 360) % 360)} gradi rispetto al telefono`;
   }
 
   return (
@@ -68,7 +77,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
         {/* Tacca fissa in alto: è la direzione del telefono */}
         <span className="compass-pointer" aria-hidden="true"></span>
 
-        <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-compass.rotation}deg)` }}>
+        <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-rotation}deg)` }}>
           <span className="compass-north">N</span>
           <span className="compass-east">E</span>
           <span className="compass-south">S</span>
@@ -88,7 +97,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
 
         <div
           className="compass-needle"
-          style={bearing === null ? undefined : { transform: `rotate(${bearing - compass.rotation}deg)` }}
+          style={bearing === null ? undefined : { transform: `rotate(${bearing - rotation}deg)` }}
         >
           <span></span>
         </div>
