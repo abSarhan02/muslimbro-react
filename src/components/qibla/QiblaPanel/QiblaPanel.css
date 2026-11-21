@@ -49,7 +49,7 @@
   border-radius: 50%;
   background: var(--surface);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.3s;
+  transition: box-shadow var(--duration) var(--ease);
 }
 /* Allineato: anello bianco intorno */
 .compass-panel.is-aligned .compass {
@@ -59,7 +59,7 @@
 .compass-needle {
   position: absolute;
   inset: 0;
-  transition: transform 0.2s linear;
+  transition: transform 0.25s ease-out;
 }
 .compass-rose > span:not(.compass-tick, .compass-kaaba) {
   position: absolute;

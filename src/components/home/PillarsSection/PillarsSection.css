@@ -12,7 +12,7 @@
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
-  transition: background-color 0.2s;
+  transition: background-color var(--duration) var(--ease);
 }
 .pillar:hover,
 .pillar[open] {

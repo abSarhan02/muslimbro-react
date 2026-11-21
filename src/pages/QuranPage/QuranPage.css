@@ -32,7 +32,7 @@
   box-shadow: var(--shadow);
   color: var(--text-primary);
   text-align: left;
-  transition: border-color 0.2s;
+  transition: border-color var(--duration) var(--ease);
 }
 .card-title {
   display: block;

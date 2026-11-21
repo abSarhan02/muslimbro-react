@@ -67,6 +67,10 @@
   --radius: 6px;
   --radius-sm: 4px;
   --touch: 44px;
+  /* Animazioni: curva morbida e durata standard */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration: 0.35s;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -208,7 +212,10 @@ button:disabled {
   letter-spacing: 0.015em;
   text-align: center;
   text-transform: uppercase;
-  transition: background-color 0.2s;
+  transition:
+    background-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease),
+    transform var(--duration) var(--ease);
 }
 .button-primary {
   background: var(--sky-surface);
@@ -296,7 +303,7 @@ button:disabled {
   height: 14px;
   border-radius: 50%;
   background: var(--surface);
-  transition: transform 0.15s;
+  transition: transform var(--duration) var(--ease);
 }
 .switch-toggle[aria-pressed="true"] .switch {
   background: var(--sky-text);
