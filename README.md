@@ -1,75 +1,79 @@
-# MuslimBro
+# muslimbro.
 
-Sito in React con Vite e React Router.
+Il mio sito per accompagnare la giornata di un musulmano: orari di preghiera, direzione della Qibla, Corano in arabo e italiano e Azkar del mattino e della sera.
+
+Online su [muslimbro.it](https://muslimbro.it).
+
+## Cosa c'è
+
+- **Orari di preghiera** per la tua posizione, con il countdown alla prossima preghiera (dopo Isha mostra il Fajr di domani)
+- **Qibla**: bussola sul telefono con la Kaaba, direzione in gradi e distanza dalla Mecca
+- **Corano**: tutte le 114 sure con testo arabo, traslitterazione, traduzione italiana e audio
+- **Azkar** del mattino e della sera
+- **Versetto del giorno** in home
+- Tema chiaro e scuro
+
+## Tecnologie
+
+- React 19 + Vite
+- React Router per le pagine
+- CSS normale, un file per componente (niente framework)
+- Test con il test runner di Node (`node --test`)
+
+API usate (tutte pubbliche, niente chiavi):
+
+- [AlAdhan](https://aladhan.com/prayer-times-api) per gli orari (metodo Muslim World League)
+- [AlQuran Cloud](https://alquran.cloud/api) per testo e traduzione del Corano
+- QuranicAudio e Islamic Network per gli audio delle recitazioni
+- [ipapi](https://ipapi.co/) per la posizione approssimativa, solo se l'utente non dà quella precisa
+
+## Pagine
 
 | Indirizzo | Pagina |
 | --- | --- |
 | `/` | Home (orari, Qibla, pilastri, versetto del giorno, Azkar) |
 | `/quran` | Lista delle sure |
-| `/quran/:number` | Lettura di una sura (es. `/quran/2`, oppure `/quran/2?ayah=255` per andare a un versetto) |
-| `/azkar?type=morning` / `?type=evening` | Azkar del mattino o della sera |
-| `/privacy` | Informativa privacy |
+| `/quran/:number` | Una sura, es. `/quran/2` (con `?ayah=255` va direttamente al versetto) |
+| `/azkar?type=morning` | Azkar del mattino (`?type=evening` per la sera) |
+| `/privacy` | Privacy |
 
-Le rotte sono definite in `src/App.jsx`.
+Le rotte sono in `src/App.jsx`.
 
-## Avvio
+## Avviarlo in locale
 
-Con Node.js 20.19 o successivo:
+Serve Node.js 20.19 o più recente.
 
 ```powershell
 npm install
-npm run dev      # sviluppo su http://127.0.0.1:4173
+npm run dev      # http://127.0.0.1:4173
 npm test         # test di orari, countdown, Qibla e testo arabo
-npm run build    # build di produzione in dist/
-npm run preview  # anteprima della build su http://127.0.0.1:4173
+npm run build    # build in dist/
+npm run preview  # prova la build
 ```
-
-## Pubblicazione
-
-Il sito è su **Cloudflare Pages**, collegato a questo repository GitHub: ogni push su `main` fa partire una nuova build.
-
-Impostazioni del progetto su Cloudflare Pages:
-
-| Campo | Valore |
-| --- | --- |
-| Framework preset | React (Vite) |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Versione di Node | presa dal file `.node-version` (22) |
-
-Non serve nessun file `_redirects`: se nel progetto non c'è un `404.html`, Cloudflare Pages tratta il sito come una single page app e risponde con `index.html` a ogni indirizzo (`/quran`, `/azkar`...). Su altri hosting va configurato il "fallback" su `index.html`.
-
-Non ci sono variabili d'ambiente né chiavi API: tutte le API usate sono pubbliche.
-
-## Bussola Qibla
-
-La direzione della Qibla è calcolata da nord vero (cerchio massimo verso la Kaaba). La bussola del telefono invece indica il nord magnetico, quindi aggiungo la declinazione magnetica calcolata con [geomagnetism](https://github.com/naturalatlas/geomagnetism) (licenza Apache-2.0), che usa il World Magnetic Model della NOAA (pubblico dominio). Il calcolo avviene sul telefono, senza chiamate esterne. Il modello WMM 2025 vale fino a novembre 2029: prima di allora conviene aggiornare la libreria.
-
-Immagini, favicon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, icone del `site.webmanifest`) e `theme-init.js` stanno in `public/` (es. `/images/og-image.png`, l'anteprima per i social).
 
 ## Struttura
 
 ```
 src/
-├── main.jsx          # punto di ingresso: monta <App /> dentro <BrowserRouter>
-├── App.jsx           # le rotte del sito (React Router)
-├── index.css         # stili globali: colori, temi chiaro/scuro, elementi comuni
-├── pages/            # una cartella per pagina (HomePage, QuranPage, SurahPage, AzkarPage, PrivacyPage, NotFoundPage)
+├── main.jsx          # monta <App /> dentro <BrowserRouter>
+├── App.jsx           # rotte
+├── index.css         # stili globali: colori, tema chiaro/scuro, bottoni
+├── pages/            # una cartella per pagina
 ├── components/
-│   ├── common/       # pezzi riutilizzabili: Brand, Loader, ErrorMessage, Tabs, ThemeToggle
+│   ├── common/       # Brand, Loader, ErrorMessage, Tabs, ThemeToggle
 │   ├── layout/       # SiteNav, UtilityLayout, PageTitle, ScrollToTop
-│   ├── home/         # sezioni della home (Hero, Pilastri, Corano, Versetto, Azkar, Footer)
-│   ├── prayer/       # scheda degli orari di preghiera
-│   ├── qibla/        # bussola della Qibla
-│   ├── quran/        # lista delle sure, audio e testo della sura
-│   └── azkar/        # scheda di un'invocazione
-├── hooks/            # custom hook (useMediaQuery, useTheme, usePrayerSchedule, useCompass, ...)
-├── services/         # chiamate alle API (AlAdhan, AlQuran Cloud, ipapi) e fetchJSON
-├── utils/            # funzioni senza React: calcolo orari, Qibla, testo arabo, localStorage
-└── data/             # dati statici: testi degli Azkar, nomi delle sure, pilastri, versetti
+│   ├── home/         # sezioni della home
+│   ├── prayer/       # card degli orari
+│   ├── qibla/        # bussola
+│   ├── quran/        # lista sure, audio, testo
+│   └── azkar/        # card di un dhikr
+├── hooks/            # useCompass, usePrayerSchedule, useTheme, ...
+├── services/         # chiamate alle API
+├── utils/            # funzioni senza React (orari, Qibla, testo arabo, localStorage)
+└── data/             # testi fissi: Azkar, nomi delle sure, pilastri, versetti
 ```
 
-Ogni componente e ogni pagina ha la sua cartella con il file .jsx e il suo .css, per esempio:
+Ogni componente ha la sua cartella con `.jsx` e `.css`:
 
 ```
 components/home/Hero/
@@ -77,17 +81,41 @@ components/home/Hero/
 └── Hero.css
 ```
 
-I test in `tests/` provano le funzioni di `utils/` e `services/`.
+In `public/` ci sono immagini, favicon, `og-image.png` per le anteprime social e `theme-init.js`, che mette il tema salvato prima che si carichi il CSS (così non c'è il flash bianco in modalità scura).
 
-`public/theme-init.js` applica il tema salvato prima del CSS, per evitare cambi di colore all'apertura.
+## La bussola della Qibla
 
-## Prova della Qibla sul telefono
+La direzione la calcolo con la formula del cerchio massimo verso la Kaaba, quindi è riferita al nord vero. La bussola del telefono però indica il nord magnetico, che in Italia è spostato di circa 4° (altrove anche di più). Per correggere uso [geomagnetism](https://github.com/naturalatlas/geomagnetism) (Apache-2.0), che ha dentro il World Magnetic Model della NOAA. Tutto calcolato sul telefono, nessuna chiamata esterna.
 
-Avvio `npm run dev`. Per provare posizione e bussola dal telefono uso un link HTTPS temporaneo con [Cloudflare Quick Tunnel](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/) (il server di Vite accetta già i domini `trycloudflare.com`). L'accesso ai sensori richiede una [connessione sicura e un clic sul pulsante](https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent/requestPermission_static).
+Il modello WMM 2025 vale fino a novembre 2029: prima di quella data devo aggiornare la libreria.
+
+### Provarla sul telefono
+
+La bussola funziona solo in HTTPS, quindi per provarla dal telefono uso un tunnel temporaneo di Cloudflare (Vite accetta già i domini `trycloudflare.com`):
 
 ```powershell
 winget install --id Cloudflare.cloudflared --exact
+npm run dev
 cloudflared tunnel --url http://127.0.0.1:4173
 ```
 
-Apro il link `https://…trycloudflare.com` nel browser del telefono, consento la posizione e premo **Attiva bussola** nella sezione Qibla. Tengo il telefono in piano e lo ruoto fino a portare la freccia verso l'alto.
+Apro il link `https://…trycloudflare.com` sul telefono, consento la posizione, giro la card con **Apri Qibla** e premo **Attiva bussola**.
+
+## Pubblicazione
+
+Il sito è su Cloudflare Pages collegato a questo repo: ogni push su `main` fa una nuova build.
+
+| Campo | Valore |
+| --- | --- |
+| Framework preset | React (Vite) |
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| Node | dal file `.node-version` (22) |
+
+Non serve il file `_redirects`: senza un `404.html` Cloudflare Pages tratta il sito come single page app e risponde sempre con `index.html`, poi ci pensa React Router.
+
+In `public/_headers` ci sono gli header di sicurezza e il `noindex` per il beta e i link `pages.dev`, così Google indicizza solo muslimbro.it.
+
+## Contatti
+
+Per segnalazioni o correzioni: [muslimbro.it@gmail.com](mailto:muslimbro.it@gmail.com)

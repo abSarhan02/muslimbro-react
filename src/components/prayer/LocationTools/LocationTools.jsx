@@ -12,8 +12,7 @@ export function LocationTools({ schedule }) {
     }
   }
 
-  // Se la posizione è bloccata il browser non mostra più il popup:
-  // va riattivata a mano dalle impostazioni del sito
+  // Posizione bloccata: il popup non esce più, va riattivata dalle impostazioni
   let hint = null;
   if (denied) {
     hint =

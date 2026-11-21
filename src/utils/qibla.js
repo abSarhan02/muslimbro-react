@@ -10,7 +10,7 @@ const toDegrees = (radians) => (radians * 180) / Math.PI;
 // Porta un angolo tra 0 e 360
 const normalize = (degrees) => ((degrees % 360) + 360) % 360;
 
-// Calcola la direzione della Qibla (gradi da nord, cerchio massimo)
+// Calcola la direzione della Qibla (gradi da nord)
 export function calculateQiblaBearing(latitude, longitude) {
   const latitudeRadians = toRadians(latitude);
   const kaabaLatitudeRadians = toRadians(KAABA.latitude);
@@ -34,9 +34,8 @@ export function distanceToKaaba(latitude, longitude) {
   return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(a));
 }
 
-// Declinazione magnetica: quanto il nord della bussola è spostato dal nord vero
-// (positiva = verso est). Modello WMM della NOAA, calcolato sul telefono.
-// Es. Bologna circa +4°, New York circa -12°
+// Declinazione magnetica (nord bussola vs nord vero)
+// es. Bologna +4°, New York -12°
 export function magneticDeclination(latitude, longitude, date = new Date()) {
   try {
     return geomagnetism.model(date).point([latitude, longitude]).decl;
@@ -45,9 +44,9 @@ export function magneticDeclination(latitude, longitude, date = new Date()) {
   }
 }
 
-// Direzione del telefono (gradi dal nord MAGNETICO)
-// iOS usa webkitCompassHeading, gli altri alpha (solo se assoluto)
-// screenAngle: rotazione dello schermo, se il telefono è in orizzontale
+// Direzione del telefono (nord magnetico)
+// iOS: webkitCompassHeading, gli altri: alpha
+// screenAngle: se il telefono è in orizzontale
 export function headingFromOrientation(event, screenAngle = 0) {
   let heading = null;
   if (Number.isFinite(event.webkitCompassHeading)) heading = event.webkitCompassHeading;
@@ -60,8 +59,7 @@ export function angleDifference(from, to) {
   return normalize(to - from + 180) - 180;
 }
 
-// Media "morbida" tra angoli: toglie il tremolio della bussola
-// (gestisce il salto 359° -> 0°)
+// Media tra angoli, toglie il tremolio (anche da 359 a 0)
 export function smoothAngle(previous, next, factor = 0.25) {
   if (previous === null) return normalize(next);
   return normalize(previous + angleDifference(previous, next) * factor);

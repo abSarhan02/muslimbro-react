@@ -10,8 +10,7 @@ const kmFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 0 })
 
 // Bussola Qibla (retro della card orari)
 // bearing: direzione della Mecca da nord
-// heading: dove punta il telefono (dal nord vero, già corretto)
-// La rosa gira al contrario del telefono, così la Kaaba resta sulla sua direzione vera
+// heading: dove punta il telefono
 export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef, onClose }) {
   const compass = useCompass();
 
@@ -24,8 +23,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
     [location],
   );
 
-  // La bussola del telefono punta al nord magnetico, la Qibla è calcolata dal nord vero:
-  // aggiungo la declinazione per passare dal primo al secondo
+  // Da nord bussola a nord vero
   const declination = useMemo(
     () => (location ? magneticDeclination(location.latitude, location.longitude) : 0),
     [location],
@@ -74,7 +72,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
       <p className="qibla-location">{location ? location.name : "In attesa della posizione"}</p>
 
       <div className="compass-wrap">
-        {/* Tacca fissa in alto: è la direzione del telefono (fuori dal cerchio) */}
+        {/* Tacca in alto = direzione del telefono */}
         <span className="compass-pointer" aria-hidden="true"></span>
 
         <div className="compass" role="img" aria-label={compassLabel}>

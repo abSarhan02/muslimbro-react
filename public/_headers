@@ -5,7 +5,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(self), accelerometer=(self), gyroscope=(self), magnetometer=(self), camera=(), microphone=(), payment=()
 
-# Il beta e i link pages.dev non devono finire su Google (il sito vero è muslimbro.it)
+# Niente Google sul beta e su pages.dev
 https://beta.muslimbro.it/*
   X-Robots-Tag: noindex
 

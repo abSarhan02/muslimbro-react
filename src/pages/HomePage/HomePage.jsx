@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// Il CSS della pagina va prima di quello dei componenti, cosi i componenti possono sovrascriverlo
+// CSS della pagina prima dei componenti
 import "./HomePage.css";
 import { AzkarSection } from "../../components/home/AzkarSection/AzkarSection.jsx";
 import { DailyVerse } from "../../components/home/DailyVerse/DailyVerse.jsx";

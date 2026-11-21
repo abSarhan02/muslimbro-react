@@ -86,8 +86,7 @@ export function usePrayerSchedule() {
     load();
   }, [load]);
 
-  // Se l'utente riattiva la posizione dalle impostazioni del browser
-  // ricarico gli orari da solo (il popup non si può più riaprire)
+  // Posizione riattivata dalle impostazioni: ricarico gli orari
   useEffect(() => {
     let permission = null;
     let cancelled = false;

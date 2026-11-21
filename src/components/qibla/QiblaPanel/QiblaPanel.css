@@ -14,7 +14,7 @@
   color: var(--on-sky);
   text-align: center;
 }
-/* Il retro della card parte già girato (due classi, così vince su .prayer-card-face) */
+/* Il retro parte già girato */
 .compass-panel.prayer-card-face {
   transform: rotateY(180deg);
 }
@@ -32,15 +32,14 @@
 }
 
 /* =====BUSSOLA===== */
-/* Contenitore: tiene la tacca, che sta fuori dal cerchio */
+/* Contenitore per la tacca (sta fuori dal cerchio) */
 .compass-wrap {
   position: relative;
   flex-shrink: 0;
   width: min(300px, 100%);
   margin-top: var(--space-2); /* spazio per la tacca */
 }
-/* overflow hidden: la rosa è un quadrato e girando gli angoli uscirebbero
-   dal cerchio (e creerebbero lo scroll orizzontale) */
+/* overflow hidden: senza, la rosa girando crea lo scroll orizzontale! */
 .compass {
   position: relative;
   width: 100%;
@@ -116,7 +115,7 @@
   transform: rotate(-45deg);
 }
 
-/* Kaaba: un quadratino nero con la fascia, sul bordo della rosa */
+/* Kaaba */
 .compass-kaaba {
   position: absolute;
   inset: 0;
@@ -131,7 +130,7 @@
   background: linear-gradient(#242424 0 28%, #c9a227 28% 40%, #242424 40%);
 }
 
-/* Tacca fissa in alto (dove punta il telefono) */
+/* Tacca in alto */
 .compass-pointer {
   position: absolute;
   z-index: 1;
@@ -222,7 +221,7 @@
 .qibla-button {
   align-self: stretch;
 }
-/* Sempre in fondo alla card, anche quando sparisce il pulsante */
+/* Sempre in fondo */
 .compass-help {
   max-width: 320px;
   margin-top: auto;

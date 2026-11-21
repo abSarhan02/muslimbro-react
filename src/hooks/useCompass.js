@@ -6,7 +6,7 @@ const INITIAL_STATUS = "Tieni il telefono in piano, poi attiva la bussola.";
 // Timeout se la bussola non risponde
 const COMPASS_TIMEOUT = 8000;
 
-// Sopra questi gradi di errore (iOS) consiglio la calibrazione
+// Oltre questi gradi di errore consiglio di calibrare
 const POOR_ACCURACY = 20;
 
 // Rotazione dello schermo (0 in verticale, 90/270 in orizzontale)
@@ -18,7 +18,7 @@ function screenAngle() {
 // BUSSOLA
 // =========================
 // heading: direzione del telefono in gradi (0-360)
-// rotation: lo stesso angolo ma senza salti 359 -> 0 (per le animazioni CSS)
+// rotation: senza salti 359 -> 0 (per le animazioni)
 // Su iOS il permesso va chiesto al click
 export function useCompass() {
   const [heading, setHeading] = useState(null);
@@ -37,7 +37,7 @@ export function useCompass() {
 
   // Chiamata quando il telefono si muove
   const handleOrientation = useCallback((event) => {
-    // Se il browser manda gli eventi assoluti uso solo quelli (sono più affidabili)
+    // Se ci sono gli eventi assoluti uso solo quelli
     if (event.type === "deviceorientationabsolute") absoluteRef.current = true;
     else if (absoluteRef.current && !Number.isFinite(event.webkitCompassHeading)) return;
 
@@ -49,7 +49,7 @@ export function useCompass() {
     headingRef.current = smoothAngle(previous, value);
     rotationRef.current = firstReading ? headingRef.current : rotationRef.current + angleDifference(previous, headingRef.current);
 
-    // Aggiorno React al massimo una volta per frame
+    // Max un aggiornamento per frame
     if (!frameRef.current) {
       frameRef.current = requestAnimationFrame(() => {
         frameRef.current = 0;
@@ -58,7 +58,7 @@ export function useCompass() {
       });
     }
 
-    // iOS dice quanto è precisa la lettura (in gradi, -1 = non affidabile)
+    // Precisione su iOS (-1 = non affidabile)
     if (Number.isFinite(event.webkitCompassAccuracy)) {
       const accuracy = event.webkitCompassAccuracy;
       setPoorAccuracy(accuracy < 0 || accuracy > POOR_ACCURACY);

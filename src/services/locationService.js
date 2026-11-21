@@ -31,8 +31,7 @@ function getBrowserLocation() {
   });
 }
 
-// Permesso della posizione (status.state: "granted" | "denied" | "prompt")
-// null se il browser non supporta la Permissions API
+// Stato del permesso posizione (null se non supportato)
 export async function getLocationPermission() {
   try {
     return await navigator.permissions.query({ name: "geolocation" });
