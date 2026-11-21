@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getCurrentLocation } from "../services/locationService.js";
+import { getCurrentLocation, getLocationPermission } from "../services/locationService.js";
 import { getPrayerTimes } from "../services/prayerApi.js";
 import { getNextPrayer, localDateKey } from "../utils/prayerTimes.js";
 
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   status: "loading", // "loading" | "ready" | "error"
   locating: true,
   location: null,
+  denied: false, // posizione bloccata dall'utente
   today: [],
   tomorrow: [],
   hijri: null,
@@ -40,7 +41,7 @@ export function usePrayerSchedule() {
       const location = locationRef.current;
 
       // Mostra subito la posizione (serve alla Qibla)
-      setState((current) => ({ ...current, location, locating: false }));
+      setState((current) => ({ ...current, location, denied: Boolean(location.denied), locating: false }));
 
       const day = new Date();
       const nextDay = new Date(day);
@@ -55,6 +56,7 @@ export function usePrayerSchedule() {
         status: "ready",
         locating: false,
         location,
+        denied: Boolean(location.denied),
         today: todayTimes.schedule,
         tomorrow: tomorrowTimes.schedule,
         hijri: todayTimes.hijri ?? null,
@@ -69,6 +71,7 @@ export function usePrayerSchedule() {
         status: "error",
         locating: false,
         location: locationRef.current,
+        denied: Boolean(error.denied || locationRef.current?.denied),
         today: [],
         tomorrow: [],
         error: `${error.message} Controlla la connessione e riprova.`,
@@ -81,6 +84,26 @@ export function usePrayerSchedule() {
   // Primo caricamento
   useEffect(() => {
     load();
+  }, [load]);
+
+  // Se l'utente riattiva la posizione dalle impostazioni del browser
+  // ricarico gli orari da solo (il popup non si può più riaprire)
+  useEffect(() => {
+    let permission = null;
+    let cancelled = false;
+    const onChange = () => {
+      if (permission.state === "granted") load();
+      else setState((current) => ({ ...current, denied: permission.state === "denied" }));
+    };
+    getLocationPermission().then((status) => {
+      if (cancelled || !status) return;
+      permission = status;
+      permission.addEventListener("change", onChange);
+    });
+    return () => {
+      cancelled = true;
+      permission?.removeEventListener("change", onChange);
+    };
   }, [load]);
 
   // Aggiorna l'ora ogni secondo

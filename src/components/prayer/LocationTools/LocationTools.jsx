@@ -1,7 +1,7 @@
 import "./LocationTools.css";
 // Mostra la posizione usata + pulsante per quella precisa
 export function LocationTools({ schedule }) {
-  const { location, locating, status, reload } = schedule;
+  const { location, locating, status, denied, reload } = schedule;
 
   let label = "Rilevamento posizione";
   if (!locating) {
@@ -10,6 +10,16 @@ export function LocationTools({ schedule }) {
     } else if (location) {
       label = `${location.name}${location.approximate ? " (approssimativa)" : ""}`;
     }
+  }
+
+  // Se la posizione è bloccata il browser non mostra più il popup:
+  // va riattivata a mano dalle impostazioni del sito
+  let hint = null;
+  if (denied) {
+    hint =
+      "Hai bloccato l’accesso alla posizione e il browser non lo chiede più. Per riattivarlo tocca l’icona accanto all’indirizzo del sito (il lucchetto o le impostazioni), consenti «Posizione» e gli orari si aggiornano da soli. Su iPhone: Impostazioni › Privacy e sicurezza › Localizzazione › Siti web di Safari.";
+  } else if (location?.approximate) {
+    hint = "Per una posizione più precisa, clicca «Usa posizione precisa» e consenti l’accesso alla posizione nel browser.";
   }
 
   return (
@@ -21,12 +31,8 @@ export function LocationTools({ schedule }) {
         </button>
       </div>
 
-      {/* Avviso se la posizione è approssimativa */}
-      {location?.approximate && (
-        <p className="location-hint">
-          Per una posizione più precisa, clicca «Usa posizione precisa» e consenti l’accesso alla posizione nel browser.
-        </p>
-      )}
+      {/* Avviso se la posizione è approssimativa o bloccata */}
+      {hint && <p className="location-hint">{hint}</p>}
     </>
   );
 }

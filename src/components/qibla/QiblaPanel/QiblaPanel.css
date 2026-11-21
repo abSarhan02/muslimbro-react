@@ -11,6 +11,9 @@
   box-shadow: var(--shadow);
   color: var(--on-sky);
   text-align: center;
+}
+/* Il retro della card parte già girato (due classi, così vince su .prayer-card-face) */
+.compass-panel.prayer-card-face {
   transform: rotateY(180deg);
 }
 .compass-panel .prayer-card-heading {

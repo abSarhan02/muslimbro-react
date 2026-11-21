@@ -21,10 +21,24 @@ function getBrowserLocation() {
           longitude: coords.longitude,
           name: "Posizione attuale",
         }),
-      (error) => reject(new Error(GEO_ERRORS[error.code] || "Impossibile rilevare la posizione.")),
+      (error) => {
+        const geoError = new Error(GEO_ERRORS[error.code] || "Impossibile rilevare la posizione.");
+        geoError.denied = error.code === 1; // l'utente ha bloccato la posizione
+        reject(geoError);
+      },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 },
     );
   });
+}
+
+// Permesso della posizione (status.state: "granted" | "denied" | "prompt")
+// null se il browser non supporta la Permissions API
+export async function getLocationPermission() {
+  try {
+    return await navigator.permissions.query({ name: "geolocation" });
+  } catch {
+    return null;
+  }
 }
 
 // Posizione precisa, altrimenti quella dall'IP
@@ -41,9 +55,12 @@ export async function getCurrentLocation() {
         longitude: data.longitude,
         name: [data.city, data.country_name].filter(Boolean).join(", ") || "Posizione approssimativa",
         approximate: true,
+        denied: Boolean(browserError.denied),
       };
     } catch {
-      throw new Error(`${browserError.message} Non è disponibile neppure la posizione approssimativa.`);
+      const error = new Error(`${browserError.message} Non è disponibile neppure la posizione approssimativa.`);
+      error.denied = Boolean(browserError.denied);
+      throw error;
     }
   }
 }
