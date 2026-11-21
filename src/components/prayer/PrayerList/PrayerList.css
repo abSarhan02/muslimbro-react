@@ -1,0 +1,82 @@
+/** LISTA ORARI */
+.upcoming-label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--sky);
+  color: var(--on-sky);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.prayer-time {
+  font-variant-numeric: tabular-nums;
+}
+.prayer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 70px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--text-primary);
+}
+.prayer-row.is-next {
+  border-color: var(--sky-text);
+}
+.prayer-identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+.prayer-image {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.prayer-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.prayer-name {
+  font: 400 var(--fs-title-sm) / var(--lh-heading) var(--font-display);
+  text-transform: uppercase;
+}
+.prayer-time {
+  flex-shrink: 0;
+  font: 400 var(--fs-title) / var(--lh-heading) var(--font-display);
+}
+/* Alba più discreta */
+.prayer-row.is-sunrise {
+  color: var(--text-secondary);
+}
+.is-sunrise .prayer-image {
+  opacity: 0.65;
+}
+@media (max-width: 850px) {
+  .prayer-identity {
+    gap: 10px;
+  }
+}
+@media (max-width: 360px) {
+  .prayer-row {
+    padding-inline: var(--space-3);
+  }
+  .prayer-image {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
+}

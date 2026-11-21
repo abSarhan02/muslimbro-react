@@ -1,0 +1,56 @@
+/** LAYOUT PAGINE INTERNE */
+.utility-main {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - 160px);
+  padding-bottom: var(--space-8);
+}
+.utility-main.is-reading {
+  padding-bottom: 0;
+}
+.page-band {
+  --focus: var(--band-text);
+  position: relative;
+  margin-bottom: var(--space-6);
+  padding: calc(var(--nav-height) + var(--space-7)) 0 var(--space-7);
+  background: var(--band-bg);
+  color: var(--band-text);
+}
+/* Sfumatura sotto l'header */
+.page-band::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 430px;
+  background: linear-gradient(180deg, var(--band-bg) 0, var(--soft-blue) 250px, var(--page-bg) 430px);
+  pointer-events: none;
+}
+@media (max-width: 650px) {
+  .page-band {
+    padding: calc(var(--nav-height) + var(--space-6)) 0 var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+}
+.utility-footer {
+  padding: var(--space-7) 0 var(--space-6);
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+.utility-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-5);
+}
+.utility-footer-inner > a:last-child {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.utility-footer-inner > a:last-child:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

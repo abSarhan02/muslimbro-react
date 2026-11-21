@@ -1,0 +1,90 @@
+/** VERSETTO DEL GIORNO */
+.daily-verse {
+  --focus: var(--on-sky);
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 40px;
+  margin-block: var(--space-4);
+  padding: 36px;
+  border-radius: var(--radius);
+  background: var(--sky-surface);
+  box-shadow: var(--shadow);
+  color: var(--on-sky);
+}
+.daily-verse-heading .eyebrow {
+  color: var(--on-sky);
+}
+.home-main .daily-verse-heading h2 {
+  margin: 0;
+  color: var(--cloud);
+  font-size: var(--fs-display-sm);
+}
+.daily-verse-body {
+  min-width: 0;
+}
+.daily-verse-reading {
+  max-height: 420px;
+  padding-right: 5px;
+  overflow-y: auto;
+  scrollbar-color: var(--cloud) transparent;
+  scrollbar-width: thin;
+}
+.daily-verse-arabic {
+  margin: 0 0 var(--space-4);
+  color: var(--cloud);
+  font: 500 clamp(1.75rem, 1.5rem + 0.8vw, 1.9375rem) / var(--lh-arabic) var(--font-arabic);
+  overflow-wrap: anywhere;
+}
+.daily-verse-translation {
+  line-height: var(--lh-reading);
+  overflow-wrap: anywhere;
+}
+.daily-verse-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgb(255 255 255 / 40%);
+}
+.daily-verse-reference {
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+.daily-verse-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+.daily-verse-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.daily-verse-error {
+  margin: var(--space-3) 0;
+  font-size: var(--fs-sm);
+}
+@media (max-width: 1050px) {
+  .daily-verse {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+@media (max-width: 850px) {
+  .daily-verse {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+}
+@media (max-width: 650px) {
+  .daily-verse {
+    margin-block: var(--space-2);
+    padding: 28px 20px;
+  }
+}

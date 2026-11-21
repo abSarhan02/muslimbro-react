@@ -1,0 +1,17 @@
+/** THEME TOGGLE */
+.theme-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-icon-light,
+:root[data-theme="dark"] .theme-icon-dark {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-light {
+  display: block;
+}

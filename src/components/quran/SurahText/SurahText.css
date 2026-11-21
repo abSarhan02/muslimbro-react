@@ -1,0 +1,84 @@
+/** TESTO SURA */
+.basmala {
+  padding: 20px 0;
+  color: var(--primary);
+  font: 500 1.8125rem / 1.8 var(--font-arabic);
+  text-align: center;
+}
+.ayah-block {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ayah-block.is-target-ayah {
+  border-color: var(--sky-text);
+}
+.ayah-block.is-target-ayah .ayah-number {
+  color: var(--sky-text);
+}
+.ayah-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+.ayah-number {
+  color: var(--text-secondary);
+  font: 600 var(--fs-lg) / 1.4 var(--font-arabic);
+}
+.quran-reader .ayah-audio-btn {
+  border-color: transparent;
+  background: var(--soft-blue);
+  color: var(--sky-text);
+}
+.quran-reader .ayah-audio-btn.playing {
+  background: var(--sky-surface);
+  color: var(--on-sky);
+}
+.ayah-texts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+.ayah-texts p {
+  margin: 0;
+}
+.ayah-ar {
+  text-align: right;
+  font: 400 clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem) / 2.05 var(--font-arabic);
+  overflow-wrap: anywhere;
+}
+.ayah-it {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-reading);
+  overflow-wrap: anywhere;
+}
+.ayah-transliteration,
+.basmala-transliteration {
+  display: none;
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: var(--lh-reading);
+  overflow-wrap: anywhere;
+}
+.show-transliteration .ayah-transliteration,
+.show-transliteration .basmala-transliteration {
+  display: block;
+}
+.basmala-transliteration {
+  margin: -8px 0 var(--space-4);
+  text-align: center;
+}
+@media (max-width: 650px) {
+  .ayah-block {
+    padding: var(--space-4) 0;
+  }
+  .ayah-header {
+    margin-bottom: var(--space-1);
+  }
+  .ayah-texts {
+    gap: 10px;
+  }
+  .basmala {
+    padding: var(--space-3) 0;
+  }
+}

@@ -1,0 +1,113 @@
+/** FIVE PILLARS */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.pillar {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: background-color 0.2s;
+}
+.pillar:hover,
+.pillar[open] {
+  background: var(--surface-muted);
+}
+.pillar summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: var(--space-5) var(--space-3) 20px;
+  border-radius: var(--radius);
+  list-style: none;
+  cursor: pointer;
+}
+.pillar summary::-webkit-details-marker {
+  display: none;
+}
+.pillar-icon {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+.pillar-title {
+  font: 400 var(--fs-title) / 1 var(--font-display);
+  text-transform: uppercase;
+}
+.pillar-toggle {
+  color: var(--primary);
+  font-size: 1.375rem;
+  line-height: 1;
+}
+.pillar-toggle::before {
+  content: "+";
+}
+.pillar[open] .pillar-toggle::before {
+  content: "−";
+}
+.pillar-mark {
+  display: block;
+  padding: 0 14px;
+  color: var(--primary);
+  font: 500 var(--fs-arabic-sm) / 1.6 var(--font-arabic);
+  text-align: center;
+}
+.pillar > p {
+  margin: 10px 0 0;
+  padding: 0 18px var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  text-align: center;
+}
+.pillars-hint {
+  margin: var(--space-2) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+@media (max-width: 850px) {
+  .pillars {
+    gap: 10px;
+  }
+  .pillar-title {
+    font-size: var(--fs-title-sm);
+  }
+  .pillar-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-width: 650px) {
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 28px;
+  }
+  .pillar summary {
+    flex-direction: row;
+    gap: 18px;
+    padding: 18px 20px;
+  }
+  .pillar-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .pillar-title {
+    flex: 1;
+    font-size: var(--fs-title);
+    text-align: left;
+  }
+  .pillar-mark,
+  .pillar > p {
+    padding-inline: 22px;
+    text-align: left;
+  }
+  .pillar > p {
+    padding-bottom: 22px;
+  }
+}

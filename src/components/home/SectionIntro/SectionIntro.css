@@ -1,0 +1,14 @@
+/** Section Intro */
+.section-intro {
+  text-align: center;
+}
+.section-intro .eyebrow {
+  justify-content: center;
+}
+.section-intro h2 {
+  margin-bottom: 14px;
+}
+.section-intro .section-description {
+  max-width: 580px;
+  margin-inline: auto;
+}

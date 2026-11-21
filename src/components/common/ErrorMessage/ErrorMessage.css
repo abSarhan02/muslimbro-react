@@ -1,0 +1,8 @@
+/** ERROR */
+.error-message {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--space-3);
+  color: var(--error-text);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}

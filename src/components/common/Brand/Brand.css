@@ -1,0 +1,16 @@
+/** BRAND */
+.brand {
+  display: inline-flex;
+  color: var(--primary);
+  font: 400 1.8125rem / 1 var(--font-display);
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+.brand-dot {
+  color: var(--sky);
+}
+@media (max-width: 650px) {
+  .brand {
+    font-size: 1.5625rem;
+  }
+}

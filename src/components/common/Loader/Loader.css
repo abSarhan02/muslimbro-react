@@ -1,0 +1,25 @@
+/** LOADER */
+.spinner {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: rotate 0.8s linear infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader-wrapper {
+  grid-column: 1 / -1;
+  padding: 44px var(--space-4);
+  color: var(--text-secondary);
+  text-align: center;
+}
+.loader-text {
+  margin: 0;
+}

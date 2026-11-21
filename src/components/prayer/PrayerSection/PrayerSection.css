@@ -1,0 +1,148 @@
+/** PRAYER SECTION */
+.prayer-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-8);
+}
+.prayer-intro,
+.prayer-card {
+  min-width: 0;
+}
+
+/* Le due facce sulla stessa griglia */
+.prayer-card {
+  perspective: 1400px;
+}
+.prayer-card-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.prayer-card.is-flipped .prayer-card-inner {
+  transform: rotateY(180deg);
+}
+.prayer-card-face {
+  grid-area: 1 / 1;
+  min-width: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  visibility: visible;
+  transition: visibility 0s;
+}
+.prayer-card-face[aria-hidden="true"] {
+  visibility: hidden;
+  pointer-events: none;
+  transition-delay: 0.3s;
+}
+.prayer-overview {
+  --focus: var(--on-sky);
+  padding: var(--space-5);
+  border-radius: var(--radius);
+  background: var(--sky-surface);
+  box-shadow: var(--shadow);
+  color: var(--on-sky);
+}
+.prayer-context {
+  margin: 0 var(--space-1) 18px;
+}
+.prayer-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.prayer-card-heading h3 {
+  margin: 0;
+  color: var(--cloud);
+  font: 400 var(--fs-title) / 1.25 var(--font-display);
+  text-transform: uppercase;
+}
+.card-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: var(--touch);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--cloud);
+  color: var(--on-sky);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.card-switch:hover {
+  background: var(--cloud-hover);
+}
+.card-switch.qibla-only {
+  display: none;
+}
+.date-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+.schedule {
+  display: grid;
+  gap: var(--space-3);
+}
+.schedule > .loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 480px;
+}
+.prayer-overview .loader-wrapper,
+.prayer-overview .error-message {
+  color: var(--on-sky);
+}
+.prayer-overview .text-button {
+  justify-self: start;
+}
+.schedule-source {
+  margin: 14px 0 0;
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+@media (max-width: 1050px) {
+  .prayer-layout {
+    gap: 40px;
+  }
+}
+@media (max-width: 850px) {
+  .prayer-layout {
+    gap: 28px;
+  }
+}
+@media (max-width: 650px) {
+  .prayer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .prayer-overview {
+    padding: 20px var(--space-4);
+  }
+  .schedule {
+    gap: 10px;
+  }
+  .schedule > .loader-wrapper {
+    min-height: 280px;
+  }
+}
+@media (max-width: 360px) {
+  .prayer-overview {
+    padding-inline: var(--space-3);
+  }
+}
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  .card-switch.qibla-only {
+    display: inline-flex;
+  }
+}

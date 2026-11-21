@@ -1,0 +1,138 @@
+import { useEffect } from "react";
+import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
+import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
+import "./PrivacyPage.css";
+
+const CONTACT = "muslimbro.it@gmail.com";
+
+// Link esterno (nuova scheda)
+function ExternalLink({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+}
+
+function MailLink() {
+  return <a href={`mailto:${CONTACT}`}>{CONTACT}</a>;
+}
+
+// Servizi esterni usati dal sito
+// Se aggiungo un'API va messa qui!
+const SERVICES = [
+  {
+    name: "AlAdhan",
+    use: "calcolo degli orari di preghiera (riceve coordinate, data e fuso orario)",
+    href: "https://aladhan.com/privacy-policy",
+  },
+  {
+    name: "ipapi.co",
+    use: "posizione approssimativa ricavata dall’indirizzo IP, solo se la posizione precisa non è disponibile",
+    href: "https://ipapi.co/privacy/",
+  },
+  { name: "AlQuran Cloud", use: "testo e traduzione del Corano", href: "https://alquran.cloud/" },
+  { name: "QuranicAudio e Islamic Network", use: "file audio delle recitazioni" },
+  { name: "Google Fonts", use: "caratteri tipografici", href: "https://policies.google.com/privacy" },
+];
+
+// Pagina privacy
+// (art. 13 GDPR)
+export function PrivacyPage() {
+  // Titolo della pagina
+  useEffect(() => {
+    document.title = "Privacy | muslimbro.";
+  }, []);
+
+  return (
+    <UtilityLayout
+      mainClassName="privacy-main"
+      footerLink={<a href={`mailto:${CONTACT}`}>Contatti</a>}
+      band={
+        <div className="privacy-width">
+          <PageTitle eyebrow="Trasparenza" title="Informativa privacy" align="start">
+            Ultimo aggiornamento: 20 novembre 2026
+          </PageTitle>
+        </div>
+      }
+    >
+      <div className="privacy-content privacy-width">
+        <section className="privacy-section">
+          <h2>1. Titolare del trattamento</h2>
+          <p>
+            <strong>Abdelkhalek Sarhan</strong>, contattabile all’indirizzo <MailLink />.
+          </p>
+        </section>
+
+        <section className="privacy-section">
+          <h2>2. Dati trattati, finalità e base giuridica</h2>
+          <ul>
+            <li>
+              <strong>Posizione precisa</strong>: usata per calcolare gli orari di preghiera e la direzione della Qibla,
+              solo se la autorizzi nel browser. Base giuridica: consenso (art. 6.1.a GDPR), revocabile in qualsiasi
+              momento dalle impostazioni del browser.
+            </li>
+            <li>
+              <strong>Indirizzo IP e dati tecnici di connessione</strong>: trasmessi ai servizi indicati sotto e al
+              fornitore di hosting per mostrare le pagine e fornire le funzioni richieste. Se la posizione precisa non è
+              disponibile, l’IP serve a stimare una posizione approssimativa. Base giuridica: legittimo interesse a
+              fornire il servizio richiesto (art. 6.1.f GDPR).
+            </li>
+            <li>
+              <strong>Preferenze</strong>: tema chiaro o scuro (<code>muslimbro-theme</code>) e scelta tra Azkar del
+              mattino e della sera (<code>muslimbro-azkar-mode</code>), salvati solo nel localStorage del tuo browser.
+              Sono strumenti tecnici necessari alla funzione che hai scelto e non richiedono consenso.
+            </li>
+          </ul>
+          <p>
+            Il sito non usa cookie di profilazione, pubblicità o statistiche. Fornire la posizione è facoltativo: senza,
+            gli orari si basano sulla posizione approssimativa oppure non sono disponibili.
+          </p>
+        </section>
+
+        <section className="privacy-section">
+          <h2>3. Destinatari</h2>
+          <p>Per le funzioni del sito il browser contatta questi servizi, che trattano i dati come titolari autonomi:</p>
+          <ul>
+            {SERVICES.map((service) => (
+              <li key={service.name}>
+                <strong>{service.name}</strong>: {service.use}
+                {service.href && (
+                  <>
+                    {" "}
+                    (<ExternalLink href={service.href}>informativa</ExternalLink>)
+                  </>
+                )}
+                .
+              </li>
+            ))}
+          </ul>
+          <p>
+            Alcuni di questi fornitori possono trovarsi fuori dall’Unione europea. In tal caso il trasferimento avviene
+            secondo le garanzie previste dagli artt. 44 e seguenti del GDPR e indicate nelle rispettive informative.
+          </p>
+        </section>
+
+        <section className="privacy-section">
+          <h2>4. Conservazione</h2>
+          <p>
+            Muslimbro non conserva coordinate né altri dati personali su propri server o database. Le preferenze restano
+            nel tuo browser finché non le cancelli. I servizi esterni e il fornitore di hosting conservano i dati
+            tecnici secondo le proprie informative.
+          </p>
+        </section>
+
+        <section className="privacy-section">
+          <h2>5. I tuoi diritti</h2>
+          <p>
+            Puoi chiedere accesso, rettifica, cancellazione, limitazione o portabilità dei dati, opporti al trattamento e
+            revocare il consenso in qualsiasi momento, senza effetti sui trattamenti precedenti, scrivendo a{" "}
+            <MailLink />. Puoi inoltre proporre reclamo al{" "}
+            <ExternalLink href="https://www.garanteprivacy.it/">Garante per la protezione dei dati personali</ExternalLink>
+            .
+          </p>
+        </section>
+      </div>
+    </UtilityLayout>
+  );
+}

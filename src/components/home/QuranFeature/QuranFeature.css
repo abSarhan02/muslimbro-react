@@ -1,0 +1,93 @@
+/** QURAN (home) */
+.feature-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 56px;
+}
+.feature-copy {
+  min-width: 0;
+}
+.feature-copy .section-description {
+  margin-bottom: 28px;
+}
+.quran-art {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  width: 100%;
+  max-width: 460px;
+  min-height: 360px;
+  padding: 0 20px 20px;
+}
+/* Immagine che esce dalla base azzurra */
+.quran-art::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 72px 0 0;
+  border-radius: var(--radius-sm);
+  background: var(--sky-surface);
+  box-shadow: var(--shadow);
+}
+.quran-art img {
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+  transform: rotate(-4deg);
+  filter: drop-shadow(0 8px 10px rgb(0 0 0 / 7%));
+  animation: quran-float 6s ease-in-out infinite;
+}
+/* Animazione del Corano */
+@keyframes quran-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-1deg);
+  }
+}
+.quran-art-caption {
+  margin-top: 14px;
+  color: var(--cloud);
+  font:
+    700 clamp(2.25rem, 1.9rem + 1.2vw, 2.875rem) / 1.6 "Amiri",
+    var(--font-arabic);
+}
+@media (max-width: 1050px) {
+  .feature-section {
+    gap: var(--space-7);
+  }
+}
+@media (max-width: 850px) {
+  .quran-art {
+    min-height: 320px;
+  }
+  .quran-art img {
+    width: 200px;
+    height: 200px;
+  }
+  .quran-art::before {
+    top: 64px;
+  }
+}
+@media (max-width: 650px) {
+  .feature-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .quran-art {
+    /* Base azzurra larga come il versetto */
+    max-width: none;
+    min-height: 310px;
+    padding: 0 18px 20px;
+  }
+  .quran-art::before {
+    top: 56px;
+  }
+}

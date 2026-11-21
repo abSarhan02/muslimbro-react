@@ -1,0 +1,62 @@
+/** PROSSIMA PREGHIERA */
+.next-prayer {
+  margin: 26px 0 var(--space-3);
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.upcoming-caption {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--sky);
+  color: var(--on-sky);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.next-prayer-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin-top: var(--space-2);
+}
+.next-prayer-title-row h3 {
+  min-width: 0;
+  margin: 0;
+  font: 400 clamp(2.25rem, 1.8rem + 1.6vw, 2.875rem) / var(--lh-heading) var(--font-display);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.next-time {
+  flex-shrink: 0;
+  font: 400 var(--fs-title) / var(--lh-heading) var(--font-display);
+}
+.countdown-caption {
+  margin: 14px 0 var(--space-1);
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+.countdown {
+  margin: 0;
+  color: var(--sky-text);
+  font: 400 clamp(2.25rem, 1.9rem + 1.2vw, 2.75rem) / var(--lh-heading) var(--font-display);
+  letter-spacing: 0.015em;
+}
+.countdown,
+.next-time {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 650px) {
+  .next-prayer {
+    margin-top: var(--space-5);
+  }
+}

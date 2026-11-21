@@ -1,0 +1,25 @@
+/** HOME: layout generico */
+.home-main {
+  padding-bottom: var(--space-6);
+}
+.section-wrap {
+  padding-block: var(--space-8);
+}
+.home-main h2 {
+  margin-bottom: 18px;
+  font: 400 var(--fs-display) / 1.08 var(--font-display);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+.section-description {
+  max-width: 470px;
+  margin-bottom: 0;
+  color: var(--text-secondary);
+  line-height: var(--lh-reading);
+}
+@media (max-width: 650px) {
+  .section-wrap {
+    padding-block: var(--space-7);
+  }
+}

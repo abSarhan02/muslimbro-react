@@ -1,0 +1,109 @@
+/** PAGINA SURA */
+.quran-reader {
+  min-height: 100svh;
+  background: var(--page-bg);
+}
+.reader-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  border-bottom: 1px solid var(--border);
+  background: var(--page-bg);
+}
+.reader-toolbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-1) 20px;
+  min-height: 60px;
+  padding-block: var(--space-1);
+}
+.reader-back {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: var(--touch);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--sky-surface);
+  color: var(--on-sky);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.reader-back-short {
+  display: none;
+}
+@media (max-width: 400px) {
+/* Testo corto sui telefoni piccoli */
+  .reader-back-full {
+    display: none;
+  }
+  .reader-back-short {
+    display: inline;
+  }
+}
+.reader-back:hover {
+  background: var(--sky-text);
+  color: var(--on-primary);
+}
+.reader-current-surah {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reader-transliteration {
+  color: var(--text-secondary);
+}
+.reader-transliteration[aria-pressed="true"] {
+  color: var(--sky-text);
+}
+.reader-content {
+  width: min(var(--reading-width), 100% - 2 * var(--gutter));
+  margin: auto;
+  padding: 36px 0 80px;
+}
+.sura-header {
+  padding: 28px 0 var(--space-6);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.surah-title-ar {
+  margin: 0;
+  color: var(--primary);
+  font: 600 clamp(2.125rem, 1.8rem + 1.5vw, 2.75rem) / 1.6 var(--font-arabic);
+}
+.surah-title-it {
+  margin: 5px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+}
+.surah-text {
+  padding-top: var(--space-3);
+}
+@media (max-width: 650px) {
+  .reader-toolbar-inner {
+    gap: var(--space-1) var(--space-2);
+    min-height: 56px;
+  }
+  .reader-back,
+  .reader-transliteration {
+    font-size: var(--fs-xs);
+  }
+  .reader-current-surah {
+    display: none;
+  }
+  .reader-content {
+    padding: var(--space-2) 0 40px;
+  }
+  .sura-header {
+    padding: var(--space-2) 0 var(--space-4);
+  }
+}

@@ -1,0 +1,186 @@
+/** QIBLA */
+.compass-panel {
+  --focus: var(--on-sky);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 28px var(--space-5);
+  border-radius: var(--radius);
+  background: var(--sky-surface);
+  box-shadow: var(--shadow);
+  color: var(--on-sky);
+  text-align: center;
+  transform: rotateY(180deg);
+}
+.compass-panel .prayer-card-heading {
+  margin-bottom: var(--space-5);
+}
+.compass-panel .compass {
+  margin-top: auto;
+}
+.compass-panel .compass-help {
+  margin-bottom: auto;
+}
+.compass {
+  position: relative;
+  flex-shrink: 0;
+  width: min(280px, 100%);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.compass-rose,
+.compass-needle {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.35s ease-out;
+}
+.compass-rose > span:not(.compass-tick) {
+  position: absolute;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.compass-rose .compass-north {
+  top: 14px;
+  left: 50%;
+  color: var(--primary);
+  transform: translateX(-50%);
+}
+.compass-east {
+  top: 50%;
+  right: 17px;
+  transform: translateY(-50%);
+}
+.compass-south {
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.compass-west {
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+.compass-tick {
+  position: absolute;
+  width: 1px;
+  height: 9px;
+  background: var(--sky-surface);
+}
+.compass-tick-a {
+  top: 18%;
+  left: 18%;
+  transform: rotate(-45deg);
+}
+.compass-tick-b {
+  top: 18%;
+  right: 18%;
+  transform: rotate(45deg);
+}
+.compass-tick-c {
+  bottom: 18%;
+  left: 18%;
+  transform: rotate(45deg);
+}
+.compass-tick-d {
+  bottom: 18%;
+  right: 18%;
+  transform: rotate(-45deg);
+}
+.compass-needle > span {
+  position: absolute;
+  top: 26%;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 24%;
+  border-radius: 4px;
+  background: var(--sky-surface);
+}
+.compass-needle > span::before {
+  content: "";
+  position: absolute;
+  top: -19px;
+  left: -7px;
+  border-right: 9px solid transparent;
+  border-bottom: 22px solid var(--sky-surface);
+  border-left: 9px solid transparent;
+}
+.compass-needle > span::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  width: 4px;
+  height: 90%;
+  background: var(--border);
+}
+.compass-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--sky-surface);
+  transform: translate(-50%, -50%);
+}
+.qibla-bearing {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 20px 0 18px;
+  font-size: var(--fs-sm);
+}
+.qibla-degrees {
+  color: var(--cloud);
+  font: 400 2.375rem / 1 var(--font-display);
+}
+.qibla-button {
+  min-width: 180px;
+}
+.sensor-status {
+  max-width: 300px;
+  min-height: var(--touch);
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-sm);
+}
+.compass-help {
+  max-width: 300px;
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+}
+.compass-help summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch);
+  padding: 0 var(--space-1);
+  font-weight: 600;
+  cursor: pointer;
+}
+.compass-help p {
+  margin: var(--space-2) 0 0;
+  line-height: var(--lh-reading);
+}
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  .compass-panel.qibla-only {
+    display: flex;
+  }
+}
+@media (max-width: 850px) {
+  .compass-panel {
+    padding: var(--space-5) 20px;
+  }
+}
+@media (max-width: 360px) {
+  .compass-panel {
+    padding: 22px var(--space-4);
+  }
+}

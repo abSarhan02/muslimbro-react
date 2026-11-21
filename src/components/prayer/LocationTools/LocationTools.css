@@ -1,0 +1,35 @@
+/** POSIZIONE */
+.location-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--space-3);
+  margin-top: var(--space-1);
+}
+.location-label {
+  min-width: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.location-refresh {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--on-sky);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.location-refresh:disabled {
+  opacity: 0.75;
+}
+.location-hint {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+}

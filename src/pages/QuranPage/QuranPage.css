@@ -1,0 +1,78 @@
+/** PAGINA CORANO */
+/* Input ricerca */
+.search-input {
+  display: block;
+  width: min(720px, 100% - 2 * var(--gutter));
+  min-height: 56px;
+  margin: 0 auto 20px;
+  padding: 15px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+.search-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: var(--space-6) 0 var(--space-3);
+}
+.quran-library .card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--text-primary);
+  text-align: left;
+  transition: border-color 0.2s;
+}
+.card-title {
+  display: block;
+  margin: 0 0 10px;
+  color: var(--primary);
+  font: 600 clamp(1.625rem, 1.5rem + 0.5vw, 1.8125rem) / 1.5 var(--font-arabic);
+}
+.card-text {
+  display: block;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.quran-library .card small,
+.card-meta {
+  display: block;
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+@media (max-width: 850px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .search-input {
+    width: calc(100% - 2 * var(--gutter));
+  }
+  .card-grid {
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+  }
+  .quran-library .card {
+    padding: 20px var(--space-4);
+  }
+}
+@media (max-width: 400px) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

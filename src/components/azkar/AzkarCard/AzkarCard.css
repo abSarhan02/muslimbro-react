@@ -1,0 +1,84 @@
+/** CARD AZKAR */
+.azkar-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-5) 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.azkar-card.is-complete {
+  opacity: 0.7;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.card-number {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--soft-blue);
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.card-type {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+.azkar-arabic {
+  margin: 0 0 14px;
+  color: var(--primary);
+  font: 500 clamp(1.375rem, 1.3rem + 0.3vw, 1.5rem) / var(--lh-arabic) var(--font-arabic);
+  overflow-wrap: anywhere;
+}
+.azkar-transliteration,
+.azkar-italian {
+  display: none;
+  margin: 0 0 var(--space-3);
+  color: var(--text-secondary);
+  font-size: var(--fs-md);
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.azkar-italian {
+  color: var(--text-primary);
+}
+.show-transliteration .azkar-transliteration,
+.show-italian .azkar-italian {
+  display: block;
+}
+.counter-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+  color: var(--primary);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.counter-button:hover:not(:disabled),
+.counter-button.counting {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.counter-button:disabled {
+  color: var(--text-secondary);
+}
+@media (max-width: 650px) {
+  .azkar-card {
+    padding: var(--space-4);
+  }
+}

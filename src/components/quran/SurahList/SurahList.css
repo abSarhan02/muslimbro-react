@@ -1,0 +1,4 @@
+/** LISTA SURE */
+.quran-library .surah-card:hover {
+  border-color: var(--sky-text);
+}
