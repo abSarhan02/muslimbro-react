@@ -18,12 +18,11 @@
 }
 
 /* Animazioni della hero (disattivate con "riduci movimento") */
-/* Bismillah: entra da sfocato, poi galleggia e "respira" con una luce */
+/* Bismillah: entra da sfocato, poi galleggia */
 .hero h1 {
   animation:
     bismillah-enter 1.4s var(--ease) both,
-    hero-float 6s ease-in-out 1.4s infinite,
-    bismillah-glow 6s ease-in-out 1.4s infinite;
+    hero-float 6s ease-in-out 1.4s infinite;
 }
 .hero-tagline {
   animation: hero-enter 0.9s var(--ease) 0.5s both;
@@ -41,15 +40,6 @@
     opacity: 1;
     transform: none;
     filter: blur(0);
-  }
-}
-@keyframes bismillah-glow {
-  0%,
-  100% {
-    text-shadow: 0 0 0 transparent;
-  }
-  50% {
-    text-shadow: 0 0 36px var(--glow);
   }
 }
 @keyframes hero-enter {

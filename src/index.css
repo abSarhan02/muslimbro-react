@@ -39,7 +39,6 @@
   /* Trasparenze bianche sopra il blu */
   --on-sky-tint: rgb(255 255 255 / 16%);
   --on-sky-line: rgb(255 255 255 / 40%);
-  --glow: rgb(255 255 255 / 55%);
 
   /* Hero */
   --hero-gradient: linear-gradient(180deg, var(--sky-surface) 0%, var(--sky-surface) 32%, #43b5ff 58%, #b9e4fc 79%, var(--page-bg) 100%);
@@ -94,6 +93,7 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration: 0.35s;
+  --duration-s: 0.25s;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
