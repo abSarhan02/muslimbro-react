@@ -127,7 +127,7 @@
   width: 16px;
   height: 16px;
   border-radius: 2px;
-  background: linear-gradient(#242424 0 28%, #c9a227 28% 40%, #242424 40%);
+  background: linear-gradient(var(--kaaba) 0 28%, var(--kaaba-gold) 28% 40%, var(--kaaba) 40%);
   /* Contorno chiaro: nel tema scuro la Kaaba nera sparirebbe */
   box-shadow: 0 0 0 2px var(--cloud);
 }
@@ -204,7 +204,7 @@
 .qibla-stats > div {
   padding: var(--space-3);
   border-radius: var(--radius-sm);
-  background: rgb(255 255 255 / 16%);
+  background: var(--on-sky-tint);
 }
 .qibla-stats dt {
   font-size: var(--fs-xs);

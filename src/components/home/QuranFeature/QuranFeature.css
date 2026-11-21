@@ -39,7 +39,7 @@
   height: 230px;
   object-fit: contain;
   transform: rotate(-4deg);
-  filter: drop-shadow(0 8px 10px rgb(0 0 0 / 7%));
+  filter: drop-shadow(var(--shadow-drop));
   animation: quran-float 6s ease-in-out infinite;
 }
 /* Animazione del Corano */

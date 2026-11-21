@@ -28,6 +28,29 @@
   --footer-text: var(--text-primary);
   --focus: var(--primary);
   --shadow: 0 3px 14px rgb(0 0 0 / 5%);
+  --shadow-button: 0 4px 14px rgb(0 0 0 / 9%);
+  --shadow-drop: 0 8px 10px rgb(0 0 0 / 7%);
+
+  /* Riquadri chiari sopra il blu (bottoni, icone, schede): bianchi, scuri nel tema scuro */
+  --light-bg: var(--cloud);
+  --light-bg-hover: var(--cloud-hover);
+  --light-text: var(--on-sky);
+
+  /* Trasparenze bianche sopra il blu */
+  --on-sky-tint: rgb(255 255 255 / 16%);
+  --on-sky-line: rgb(255 255 255 / 40%);
+  --glow: rgb(255 255 255 / 55%);
+
+  /* Hero */
+  --hero-gradient: linear-gradient(180deg, var(--sky-surface) 0%, var(--sky-surface) 32%, #43b5ff 58%, #b9e4fc 79%, var(--page-bg) 100%);
+  --hero-light: rgb(255 255 255 / 28%);
+
+  /* Kaaba (uguale nei due temi) */
+  --kaaba: #242424;
+  --kaaba-gold: #c9a227;
+
+  /* Barra del browser su mobile (meta theme-color) */
+  --browser-bar: var(--sky);
 
   /** Variables: font e dimensioni */
   --font-display: "Anton", Impact, "Arial Narrow", sans-serif;
@@ -93,6 +116,11 @@
   --footer-bg: linear-gradient(180deg, var(--page-bg) 0%, var(--soft-blue) 40%, #007acb 100%);
   --footer-text: #edf6ff;
   --shadow: 0 3px 14px rgb(0 0 0 / 16%);
+  --light-bg: var(--surface);
+  --light-bg-hover: var(--surface-muted);
+  --light-text: var(--text-primary);
+  --hero-gradient: linear-gradient(180deg, #006cba 0%, #007ccc 33%, #34454f 72%, var(--page-bg) 100%);
+  --browser-bar: var(--page-bg);
 }
 @media (max-width: 650px) {
   :root {
@@ -227,11 +255,11 @@ button:disabled {
 }
 /* Pulsante chiaro (sfondo azzurro) */
 .button-light {
-  background: var(--cloud);
-  color: var(--on-sky);
+  background: var(--light-bg);
+  color: var(--light-text);
 }
 .button-light:hover:not(:disabled) {
-  background: var(--cloud-hover);
+  background: var(--light-bg-hover);
 }
 .button-light:disabled {
   opacity: 0.75;

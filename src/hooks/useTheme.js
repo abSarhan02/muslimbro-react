@@ -4,8 +4,6 @@ import { STORAGE_KEYS, savePreference } from "../utils/storage.js";
 // Tema chiaro/scuro
 // Il tema iniziale lo mette public/theme-init.js
 
-const THEME_COLORS = { light: "#0099ff", dark: "#181818" };
-
 // Componenti da aggiornare quando cambia il tema
 const listeners = new Set();
 
@@ -20,8 +18,9 @@ function subscribe(listener) {
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  // Colore della barra del browser (mobile)
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLORS[theme]);
+  // Colore della barra del browser (mobile), preso dalla palette (--browser-bar)
+  const barColor = getComputedStyle(document.documentElement).getPropertyValue("--browser-bar").trim();
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", barColor);
   savePreference(STORAGE_KEYS.theme, theme);
   listeners.forEach((listener) => listener());
 }

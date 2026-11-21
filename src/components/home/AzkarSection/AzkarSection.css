@@ -19,16 +19,16 @@
 }
 /* Hover leggero: solo il blu un po' più chiaro */
 .azkar-choice:hover {
-  background-color: color-mix(in srgb, var(--sky-surface), white 10%);
+  background-color: color-mix(in srgb, var(--sky-surface), var(--cloud) 10%);
 }
-/* Icona su sfondo bianco (freccia e orizzonte sono blu come la card) */
+/* Icona su riquadro chiaro (scuro nel tema scuro) */
 .azkar-choice img {
   flex: 0 0 72px;
   width: 72px;
   height: 72px;
   padding: 12px;
   border-radius: var(--radius);
-  background: var(--cloud);
+  background: var(--light-bg);
   object-fit: contain;
 }
 .azkar-choice-copy {

@@ -55,11 +55,11 @@
 }
 .site-nav.is-home:not(.is-scrolled) .icon-button {
   border-color: transparent;
-  background: var(--cloud);
-  color: var(--on-sky);
+  background: var(--light-bg);
+  color: var(--light-text);
 }
 .site-nav.is-home:not(.is-scrolled) .icon-button:hover {
-  background: var(--cloud-hover);
+  background: var(--light-bg-hover);
 }
 .site-nav.is-home:not(.is-scrolled) {
   --focus: var(--hero-text);

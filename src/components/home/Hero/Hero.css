@@ -4,14 +4,14 @@
   --focus: var(--hero-text);
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--sky-surface) 0%, var(--sky-surface) 32%, #43b5ff 58%, #b9e4fc 79%, var(--page-bg) 100%);
+  background: var(--hero-gradient);
 }
 /* Luce in alto a sinistra */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0 -15% 15%;
-  background: radial-gradient(ellipse at 25% 25%, rgb(255 255 255 / 28%), transparent 65%);
+  background: radial-gradient(ellipse at 25% 25%, var(--hero-light), transparent 65%);
   opacity: 0.55;
   pointer-events: none;
   animation: sky-light 14s ease-in-out infinite alternate;
@@ -46,10 +46,10 @@
 @keyframes bismillah-glow {
   0%,
   100% {
-    text-shadow: 0 0 0 rgb(255 255 255 / 0%);
+    text-shadow: 0 0 0 transparent;
   }
   50% {
-    text-shadow: 0 0 36px rgb(255 255 255 / 55%);
+    text-shadow: 0 0 36px var(--glow);
   }
 }
 @keyframes hero-enter {
@@ -81,9 +81,6 @@
     transform: translateX(8%);
   }
 }
-:root[data-theme="dark"] .hero {
-  background: linear-gradient(180deg, #006cba 0%, #007ccc 33%, #34454f 72%, var(--page-bg) 100%);
-}
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -110,7 +107,7 @@
   font-weight: 600;
 }
 .hero .button {
-  box-shadow: 0 4px 14px rgb(0 0 0 / 9%);
+  box-shadow: var(--shadow-button);
 }
 @media (max-width: 850px) {
   .hero-inner {

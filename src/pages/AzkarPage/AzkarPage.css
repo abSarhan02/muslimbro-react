@@ -13,8 +13,8 @@
 }
 .azkar-mode .tab[aria-selected="true"] {
   border-color: var(--border);
-  background: var(--cloud);
-  color: var(--on-sky);
+  background: var(--light-bg);
+  color: var(--light-text);
 }
 .azkar-mode .tab:hover:not([aria-selected="true"]) {
   border-color: var(--cloud);
