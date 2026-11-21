@@ -11,3 +11,6 @@ npm-debug.log*
 .idea/
 .vscode/
 .codegraph/
+
+# Note locali per l'editor
+CLAUDE.md
