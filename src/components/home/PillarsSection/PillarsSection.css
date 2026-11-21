@@ -14,9 +14,10 @@
   box-shadow: var(--shadow);
   transition: background-color var(--duration) var(--ease);
 }
+/* Hover leggero: solo lo sfondo un po' più azzurro (come le card Azkar) */
 .pillar:hover,
 .pillar[open] {
-  background: var(--surface-muted);
+  background-color: color-mix(in srgb, var(--surface), var(--sky) 7%);
 }
 .pillar summary {
   display: flex;
