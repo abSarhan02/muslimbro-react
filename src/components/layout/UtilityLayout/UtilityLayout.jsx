@@ -7,7 +7,7 @@ import "./UtilityLayout.css";
 // hideChrome nasconde navbar e footer (pagina della sura)
 export function UtilityLayout({ band, children, mainClassName = "", footerLink, hideChrome = false }) {
   return (
-    <>
+    <div className="utility-page">
       <a className="skip-link" href="#main-content">
         Vai al contenuto
       </a>
@@ -27,6 +27,6 @@ export function UtilityLayout({ band, children, mainClassName = "", footerLink, 
           </div>
         </footer>
       )}
-    </>
+    </div>
   );
 }

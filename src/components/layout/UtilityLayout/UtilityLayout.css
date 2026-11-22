@@ -1,8 +1,15 @@
 /** LAYOUT PAGINE INTERNE */
+/* Footer sempre in fondo anche con poco contenuto */
+.utility-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
 .utility-main {
   position: relative;
   isolation: isolate;
-  min-height: calc(100vh - 160px);
+  flex: 1;
   padding-bottom: var(--space-8);
 }
 .utility-main.is-reading {
@@ -35,6 +42,8 @@
   }
 }
 .utility-footer {
+  /* Sopra la sfumatura della fascia */
+  position: relative;
   padding: var(--space-7) 0 var(--space-6);
   background: var(--footer-bg);
   color: var(--footer-text);
