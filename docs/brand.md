@@ -6,7 +6,7 @@ Guida veloce per tenere lo stesso stile tra sito, post e reel.
 
 - Il nome si scrive **muslimbro.** tutto minuscolo e con il punto finale. Nei titoli in Anton va in maiuscolo: **MUSLIMBRO.**
 - Il punto finale è nero `#242424` sul blu, oppure blu `#0099ff` sul bianco.
-- **Marchio "M"** in bianco su quadrato blu `#008fef` con angoli arrotondati (`public/favicon.svg`, `public/android-chrome-512x512.png`). Va bene come foto profilo.
+- **Marchio "M"** in bianco su quadrato blu `#008fef` con angoli arrotondati (`public/favicon.svg`, `public/icons/icon-512.png`). Va bene come foto profilo.
 - Marchio e logo completo in `public/images/logo/`: `mark-blu|bianco|scuro.svg` e `lockup-su-blu|su-bianco|trasparente-scuro.svg`.
 - Sito: [muslimbro.it](https://muslimbro.it). Contatti: muslimbro.it@gmail.com
 

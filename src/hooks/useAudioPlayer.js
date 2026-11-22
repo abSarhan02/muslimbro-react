@@ -10,6 +10,19 @@ function formatAudioTime(seconds) {
   return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
 }
 
+// Titolo e immagine nella tendina del telefono
+function setMediaInfo(title) {
+  if (!("mediaSession" in navigator) || typeof MediaMetadata === "undefined") return;
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title,
+    artist: "muslimbro.",
+    artwork: [
+      { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+  });
+}
+
 // =========================
 // AUDIO PLAYER
 // =========================
@@ -44,7 +57,7 @@ export function useAudioPlayer() {
 
   // Play/pausa
   const toggle = useCallback(
-    (id, url) => {
+    (id, url, title = "Corano") => {
       const active = audioRef.current;
 
       // Stessa traccia: pausa o riprendi
@@ -85,6 +98,7 @@ export function useAudioPlayer() {
         if (isCurrent()) setState((value) => ({ ...value, playing: false, loading: false, error: true }));
       });
 
+      setMediaInfo(title);
       setState({ ...IDLE, id, loading: true });
       play(audio, id);
     },

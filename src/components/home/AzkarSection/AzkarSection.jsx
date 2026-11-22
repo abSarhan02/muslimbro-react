@@ -3,8 +3,8 @@ import { SectionIntro } from "../SectionIntro/SectionIntro.jsx";
 import "./AzkarSection.css";
 
 const AZKAR_CHOICES = [
-  { mode: "morning", image: "/images/icons8-alba-96.png", label: "Un nuovo inizio", title: "Azkar del mattino" },
-  { mode: "evening", image: "/images/icons8-tramonto-96.png", label: "Un momento di quiete", title: "Azkar della sera" },
+  { mode: "morning", image: "/images/azkar/alba.png", label: "Un nuovo inizio", title: "Azkar del mattino" },
+  { mode: "evening", image: "/images/azkar/tramonto.png", label: "Un momento di quiete", title: "Azkar della sera" },
 ];
 
 // Sezione azkar della home

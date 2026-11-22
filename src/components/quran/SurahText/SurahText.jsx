@@ -2,6 +2,7 @@ import { memo, useMemo } from "react";
 import { ayahAudioUrl } from "../../../services/quranApi.js";
 import {
   BASMALA,
+  surahTitle,
   BASMALA_TRANSLITERATION,
   arabicNumber,
   hasOpeningBasmala,
@@ -40,6 +41,7 @@ export function SurahText({ data, target, player }) {
         <AyahBlock
           key={ayah.numberInSurah}
           surahNumber={arabic.number}
+          surahName={surahTitle(arabic)}
           ayah={ayah}
           translation={translations.get(ayah.numberInSurah) || ""}
           transliteration={transliterations.get(ayah.numberInSurah) || "Traslitterazione non disponibile."}
@@ -53,7 +55,7 @@ export function SurahText({ data, target, player }) {
 }
 
 // Singolo versetto (memo, le sure lunghe hanno tanti versetti)
-const AyahBlock = memo(function AyahBlock({ surahNumber, ayah, translation, transliteration, selected, track, onToggle }) {
+const AyahBlock = memo(function AyahBlock({ surahNumber, surahName, ayah, translation, transliteration, selected, track, onToggle }) {
   const label = `ayah ${ayah.numberInSurah}`;
 
   return (
@@ -69,7 +71,7 @@ const AyahBlock = memo(function AyahBlock({ surahNumber, ayah, translation, tran
           className="ayah-audio-btn"
           track={track}
           label={label}
-          onClick={() => onToggle(`ayah-${ayah.number}`, ayahAudioUrl(ayah.number))}
+          onClick={() => onToggle(`ayah-${ayah.number}`, ayahAudioUrl(ayah.number), `${surahName}, versetto ${ayah.numberInSurah}`)}
         />
       </div>
 

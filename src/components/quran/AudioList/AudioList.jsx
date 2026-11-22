@@ -40,7 +40,7 @@ const AudioCard = memo(function AudioCard({ surah, reciter, track, onToggle, onS
           className="play-btn"
           track={track}
           label={title}
-          onClick={() => onToggle(id, surahAudioUrl(surah.number, reciter))}
+          onClick={() => onToggle(id, surahAudioUrl(surah.number, reciter), title)}
         />
         <input
           className="audio-progress"
