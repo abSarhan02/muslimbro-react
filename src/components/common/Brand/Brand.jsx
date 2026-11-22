@@ -5,6 +5,7 @@ import "./Brand.css";
 export function Brand({ label, className = "" }) {
   return (
     <Link className={`brand ${className}`.trim()} to="/" aria-label={label}>
+      <span className="brand-mark" aria-hidden="true" />
       <span>
         muslimbro<span className="brand-dot">.</span>
       </span>

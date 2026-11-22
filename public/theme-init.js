@@ -9,5 +9,5 @@
   document.documentElement.dataset.theme = theme;
   const meta = document.querySelector('meta[name="theme-color"]');
   // Stessi colori di --browser-bar in index.css (qui il CSS non è ancora caricato)
-  if (meta) meta.content = theme === "dark" ? "#181818" : "#0099ff";
+  if (meta) meta.content = theme === "dark" ? "#181818" : "#008fef";
 })();

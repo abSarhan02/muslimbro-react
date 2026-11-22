@@ -50,6 +50,9 @@
 .site-nav.is-home:not(.is-scrolled) .brand-dot {
   color: var(--cloud);
 }
+.site-nav.is-home:not(.is-scrolled) .brand-mark {
+  background: var(--cloud);
+}
 .site-nav.is-home:not(.is-scrolled) .nav-list {
   color: var(--hero-text);
 }
