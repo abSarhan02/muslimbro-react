@@ -8,10 +8,6 @@
 }
 .pillar {
   min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
   transition: background-color var(--duration) var(--ease);
 }
 /* Hover leggero: solo lo sfondo un po' più azzurro (come le card Azkar) */
@@ -72,7 +68,7 @@
   color: var(--text-secondary);
   font-size: var(--fs-sm);
 }
-@media (max-width: 850px) {
+@media (width <= 850px) {
   .pillars {
     gap: 10px;
   }
@@ -84,7 +80,7 @@
     height: 48px;
   }
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .pillars {
     grid-template-columns: minmax(0, 1fr);
     margin-top: 28px;

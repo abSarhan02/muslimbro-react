@@ -4,10 +4,6 @@
   flex-direction: column;
   min-width: 0;
   padding: var(--space-5) 28px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  box-shadow: var(--shadow);
 }
 .azkar-card.is-complete {
   opacity: 0.7;
@@ -77,7 +73,7 @@
 .counter-button:disabled {
   color: var(--text-secondary);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .azkar-card {
     padding: var(--space-4);
   }

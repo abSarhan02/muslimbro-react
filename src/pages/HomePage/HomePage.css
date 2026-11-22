@@ -18,7 +18,7 @@
   color: var(--text-secondary);
   line-height: var(--lh-reading);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .section-wrap {
     padding-block: var(--space-7);
   }

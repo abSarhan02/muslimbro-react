@@ -14,7 +14,7 @@ export function PillarsSection() {
 
       <div className="pillars">
         {PILLARS.map((pillar) => (
-          <details key={pillar.title} className="pillar">
+          <details key={pillar.title} className="pillar card">
             <summary>
               <img
                 className="pillar-icon"

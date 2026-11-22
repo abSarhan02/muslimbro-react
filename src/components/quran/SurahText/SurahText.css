@@ -68,7 +68,7 @@
   margin: -8px 0 var(--space-4);
   text-align: center;
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .ayah-block {
     padding: var(--space-4) 0;
   }

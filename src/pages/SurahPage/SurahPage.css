@@ -32,11 +32,11 @@
   font-size: var(--fs-sm);
   font-weight: 600;
 }
+/* Testo corto sui telefoni piccoli */
 .reader-back-short {
   display: none;
 }
-@media (max-width: 400px) {
-/* Testo corto sui telefoni piccoli */
+@media (width <= 400px) {
   .reader-back-full {
     display: none;
   }
@@ -62,8 +62,6 @@
   color: var(--sky-text);
 }
 .reader-content {
-  width: min(var(--reading-width), 100% - 2 * var(--gutter));
-  margin: auto;
   padding: 36px 0 80px;
 }
 .sura-header {
@@ -85,7 +83,7 @@
 .surah-text {
   padding-top: var(--space-3);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .reader-toolbar-inner {
     gap: var(--space-1) var(--space-2);
     min-height: 56px;

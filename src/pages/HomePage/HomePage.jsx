@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 // CSS della pagina prima dei componenti
 import "./HomePage.css";
 import { AzkarSection } from "../../components/home/AzkarSection/AzkarSection.jsx";
@@ -9,13 +8,11 @@ import { PillarsSection } from "../../components/home/PillarsSection/PillarsSect
 import { QuranFeature } from "../../components/home/QuranFeature/QuranFeature.jsx";
 import { SiteNav } from "../../components/layout/SiteNav/SiteNav.jsx";
 import { PrayerSection } from "../../components/prayer/PrayerSection/PrayerSection.jsx";
+import { usePageTitle } from "../../hooks/usePageTitle.js";
 
 // Home
 export function HomePage() {
-  // Titolo della pagina
-  useEffect(() => {
-    document.title = "muslimbro. | Il tuo compagno spirituale quotidiano";
-  }, []);
+  usePageTitle();
 
   return (
     <>

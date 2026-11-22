@@ -122,13 +122,13 @@
   --hero-gradient: linear-gradient(180deg, #006cba 0%, #007ccc 33%, #34454f 72%, var(--page-bg) 100%);
   --browser-bar: var(--page-bg);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   :root {
     --gutter: 20px;
     --nav-height: 74px;
   }
 }
-@media (max-width: 360px) {
+@media (width <= 360px) {
   :root {
     --gutter: 16px;
   }
@@ -142,6 +142,7 @@ html {
 }
 body {
   margin: 0;
+  text-underline-offset: 4px;
   overflow-x: clip;
   background: var(--page-bg);
   color: var(--text-primary);
@@ -170,6 +171,12 @@ h2,
 h3,
 p {
   margin-top: 0;
+}
+/* Titoli su più righe: righe di lunghezza simile */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 [hidden] {
   display: none !important;
@@ -201,8 +208,14 @@ p {
 .skip-link:focus {
   transform: none;
 }
+/* Larghezza del contenuto */
 .page-width {
   width: min(var(--content-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+/* Colonna più stretta per leggere (sura, azkar, privacy) */
+.reading-width {
+  width: min(var(--reading-width), 100% - 2 * var(--gutter));
   margin-inline: auto;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -357,11 +370,48 @@ button:disabled {
   padding: 20px 0;
   color: var(--text-secondary);
 }
-.qibla-only {
-  display: none;
+
+/** CARD */
+/* Card chiara (scura nel tema scuro) */
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-  a.qibla-only {
-    display: inline-flex;
+/* Card azzurra (orari, Qibla, versetto, azkar) */
+.card-sky {
+  --focus: var(--on-sky);
+  border-radius: var(--radius);
+  background: var(--sky-surface);
+  box-shadow: var(--shadow);
+  color: var(--on-sky);
+}
+/* Etichetta azzurra (es. "Prossima") */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--sky);
+  color: var(--on-sky);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/** ANIMAZIONI COMUNI */
+/* Rotellina di caricamento */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Menu a tendina: entra scendendo un po' */
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
   }
 }

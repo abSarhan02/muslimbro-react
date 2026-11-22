@@ -48,6 +48,19 @@ export function getSurah(number) {
   return surahCache.get(number);
 }
 
+// Un versetto in arabo e italiano (versetto del giorno)
+export async function getVerse({ surah, ayah }) {
+  const result = await fetchJSON(`${BASE_URL}/ayah/${surah}:${ayah}/editions/quran-uthmani,it.piccardo`);
+  const [arabic, italian] = result.data || [];
+
+  // Controlla che sia il versetto giusto
+  const matches = (edition) => edition?.text && edition.surah?.number === surah && edition.numberInSurah === ayah;
+  if (result.code !== 200 || !matches(arabic) || !matches(italian))
+    throw new Error("Il servizio non ha restituito il versetto selezionato.");
+
+  return { arabic: arabic.text, italian: italian.text };
+}
+
 // Audio della sura (numero a 3 cifre: 001, 002...)
 export function surahAudioUrl(number, reciter = DEFAULT_RECITER) {
   return `https://download.quranicaudio.com/quran/${reciter.folder}/${String(number).padStart(3, "0")}.mp3`;

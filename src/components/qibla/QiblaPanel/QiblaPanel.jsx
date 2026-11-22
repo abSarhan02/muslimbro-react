@@ -11,8 +11,14 @@ const kmFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 0 })
 // Bussola Qibla (retro della card orari)
 // bearing: direzione della Mecca da nord
 // heading: dove punta il telefono
-export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef, onClose }) {
+export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
   const compass = useCompass();
+  const helpRef = useRef(null);
+
+  // Girando la card chiudi "Direzione imprecisa?"
+  useEffect(() => {
+    if (hidden && helpRef.current) helpRef.current.open = false;
+  }, [hidden]);
 
   const bearing = useMemo(
     () => (location ? calculateQiblaBearing(location.latitude, location.longitude) : null),
@@ -56,8 +62,7 @@ export function QiblaPanel({ location, hidden, panelRef, closeButtonRef, helpRef
 
   return (
     <section
-      ref={panelRef}
-      className={`compass-panel qibla-card prayer-card-face qibla-only${aligned ? " is-aligned" : ""}`}
+      className={`compass-panel card-sky prayer-card-face${aligned ? " is-aligned" : ""}`}
       id="qibla"
       aria-labelledby="qibla-heading"
       aria-hidden={hidden}

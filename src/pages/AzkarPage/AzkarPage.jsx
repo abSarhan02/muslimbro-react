@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { AzkarCard } from "../../components/azkar/AzkarCard/AzkarCard.jsx";
 import { TabList, TabPanel } from "../../components/common/Tabs/Tabs.jsx";
-import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
+import { PageLayout } from "../../components/layout/PageLayout/PageLayout.jsx";
+import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
 import { azkarData, azkarItalian, azkarTitles, pageTitles } from "../../data/azkarData.js";
+import { usePageTitle } from "../../hooks/usePageTitle.js";
 import { STORAGE_KEYS, readPreference, savePreference } from "../../utils/storage.js";
 import "./AzkarPage.css";
 
@@ -34,10 +36,7 @@ export function AzkarPage() {
   }));
   const [visibleTexts, setVisibleTexts] = useState({ italian: true, transliteration: false });
 
-  // Titolo della pagina
-  useEffect(() => {
-    document.title = "Azkar quotidiani | MuslimBro";
-  }, []);
+  usePageTitle("Azkar quotidiani");
 
   // Salva l'ultima scelta
   useEffect(() => {
@@ -72,7 +71,7 @@ export function AzkarPage() {
     .join("");
 
   return (
-    <UtilityLayout
+    <PageLayout
       band={
         <>
           <TabList
@@ -83,17 +82,13 @@ export function AzkarPage() {
             onSelect={changeMode}
             idPrefix="azkar"
           />
-          <div className="utility-title">
-            <p className="azkar-title-ar" lang="ar" dir="rtl">
-              {title.ar}
-            </p>
-            <h1>{title.it}</h1>
-            <p className="utility-lead">Invocazioni conosciute per accompagnare l'inizio e la fine della giornata.</p>
-          </div>
+          <PageTitle arabic={title.ar} title={title.it}>
+            Invocazioni conosciute per accompagnare l'inizio e la fine della giornata.
+          </PageTitle>
         </>
       }
     >
-      <TabPanel idPrefix="azkar" selected={mode} className={`azkar-container${textClasses}`} tabIndex={0}>
+      <TabPanel idPrefix="azkar" selected={mode} className={`azkar-container reading-width${textClasses}`} tabIndex={0}>
         <div className="reading-options" role="group" aria-label="Testi da mostrare">
           {TEXT_OPTIONS.map((option) => (
             <button
@@ -123,6 +118,6 @@ export function AzkarPage() {
           ))}
         </div>
       </TabPanel>
-    </UtilityLayout>
+    </PageLayout>
   );
 }

@@ -20,15 +20,6 @@
   border-color: var(--cloud);
   background: transparent;
 }
-.azkar-title-ar {
-  margin: 0 0 var(--space-2);
-  color: var(--cloud);
-  font: 500 clamp(1.75rem, 1.4rem + 1.4vw, 2.375rem) / 1.6 var(--font-arabic);
-}
-.azkar-container {
-  width: min(var(--reading-width), 100% - 2 * var(--gutter));
-  margin: 0 auto;
-}
 .reading-options {
   display: flex;
   justify-content: flex-end;
@@ -45,12 +36,9 @@
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .azkar-mode {
     margin-bottom: var(--space-5);
-  }
-  .azkar-container {
-    width: calc(100% - 2 * var(--space-4));
   }
   .reading-options {
     justify-content: space-between;

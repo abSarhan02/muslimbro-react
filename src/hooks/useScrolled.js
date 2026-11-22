@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // true quando scorro oltre offset px
 // (navbar opaca)
 export function useScrolled(offset) {
-  const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > offset);
+  const [scrolled, setScrolled] = useState(() => window.scrollY > offset);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > offset);

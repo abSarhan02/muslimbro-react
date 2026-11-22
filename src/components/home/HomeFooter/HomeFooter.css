@@ -43,7 +43,6 @@
 .footer-contact a:hover,
 .footer-bottom a:hover {
   text-decoration: underline;
-  text-underline-offset: 4px;
 }
 .footer-bottom {
   align-items: center;
@@ -62,7 +61,7 @@
   align-items: center;
   min-height: var(--touch);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .site-footer {
     padding-top: var(--space-7);
   }

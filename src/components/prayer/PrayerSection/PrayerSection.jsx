@@ -21,7 +21,6 @@ export function PrayerSection() {
 
   return (
     <section
-      ref={refs.section}
       className="prayer-section section-wrap page-width"
       id="prayer-times"
       aria-labelledby="prayer-heading"
@@ -38,12 +37,12 @@ export function PrayerSection() {
           <NextPrayer schedule={schedule} />
         </div>
 
-        <div ref={refs.card} className={`prayer-card${card.flipped ? " is-flipped" : ""}`} onKeyDown={card.onKeyDown}>
+        <div className={`prayer-card${card.flipped ? " is-flipped" : ""}`} onKeyDown={card.onKeyDown}>
           <div className="prayer-card-inner">
             {/* Fronte: orari di oggi */}
             <div
               ref={refs.front}
-              className="prayer-overview prayer-card-face"
+              className="prayer-overview card-sky prayer-card-face"
               id="prayer-card-front"
               aria-hidden={card.flipped}
               inert={card.flipped}
@@ -52,16 +51,18 @@ export function PrayerSection() {
               <div className="prayer-context">
                 <div className="prayer-card-heading">
                   <h3>Orari di oggi</h3>
-                  <button
-                    ref={refs.openButton}
-                    className="card-switch qibla-only"
-                    type="button"
-                    aria-controls="qibla"
-                    aria-expanded={card.flipped}
-                    onClick={card.open}
-                  >
-                    Apri Qibla
-                  </button>
+                  {card.mobile && (
+                    <button
+                      ref={refs.openButton}
+                      className="card-switch"
+                      type="button"
+                      aria-controls="qibla"
+                      aria-expanded={card.flipped}
+                      onClick={card.open}
+                    >
+                      Apri Qibla
+                    </button>
+                  )}
                 </div>
 
                 <p className="date-line">
@@ -80,15 +81,15 @@ export function PrayerSection() {
               <p className="schedule-source">{CALCULATION_LABEL}</p>
             </div>
 
-            {/* Retro: Qibla */}
-            <QiblaPanel
-              location={schedule.location}
-              hidden={!card.flipped}
-              panelRef={refs.back}
-              closeButtonRef={refs.closeButton}
-              helpRef={refs.help}
-              onClose={card.close}
-            />
+            {/* Retro: Qibla (solo telefono e tablet) */}
+            {card.mobile && (
+              <QiblaPanel
+                location={schedule.location}
+                hidden={!card.flipped}
+                closeButtonRef={refs.closeButton}
+                onClose={card.close}
+              />
+            )}
           </div>
         </div>
       </div>

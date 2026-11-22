@@ -23,7 +23,7 @@ export function PrayerList({ schedule }) {
           <img className="prayer-image" src={prayer.image} alt="" width="48" height="48" />
           <div className="prayer-labels">
             <span className="prayer-name">{prayer.label}</span>
-            {selected && <span className="upcoming-label">Prossima</span>}
+            {selected && <span className="badge">Prossima</span>}
           </div>
         </div>
         <time className="prayer-time" dateTime={prayer.time}>

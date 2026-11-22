@@ -10,8 +10,8 @@ export function NextPrayer({ schedule }) {
   else if (status === "error") title = "Orari non disponibili";
 
   return (
-    <section className="next-prayer" aria-labelledby="next-prayer-title">
-      <p className="upcoming-caption">{next?.tomorrow ? "Prossima preghiera, domani" : "Prossima preghiera"}</p>
+    <section className="next-prayer card" aria-labelledby="next-prayer-title">
+      <p className="badge">{next?.tomorrow ? "Prossima preghiera, domani" : "Prossima preghiera"}</p>
 
       <div className="next-prayer-title-row">
         <h3 id="next-prayer-title" aria-live="polite">

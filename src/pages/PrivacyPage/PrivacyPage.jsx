@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { PageLayout } from "../../components/layout/PageLayout/PageLayout.jsx";
 import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
-import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
+import { CONTACT_EMAIL } from "../../data/site.js";
+import { usePageTitle } from "../../hooks/usePageTitle.js";
 import "./PrivacyPage.css";
-
-const CONTACT = "muslimbro.it@gmail.com";
 
 // Link esterno (nuova scheda)
 function ExternalLink({ href, children }) {
@@ -15,7 +14,7 @@ function ExternalLink({ href, children }) {
 }
 
 function MailLink() {
-  return <a href={`mailto:${CONTACT}`}>{CONTACT}</a>;
+  return <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>;
 }
 
 // Servizi esterni usati dal sito
@@ -39,24 +38,19 @@ const SERVICES = [
 // Pagina privacy
 // (art. 13 GDPR)
 export function PrivacyPage() {
-  // Titolo della pagina
-  useEffect(() => {
-    document.title = "Privacy | muslimbro.";
-  }, []);
+  usePageTitle("Privacy");
 
   return (
-    <UtilityLayout
+    <PageLayout
       mainClassName="privacy-main"
-      footerLink={<a href={`mailto:${CONTACT}`}>Contatti</a>}
+      footerLink={<a href={`mailto:${CONTACT_EMAIL}`}>Contatti</a>}
       band={
-        <div className="privacy-width">
-          <PageTitle eyebrow="Trasparenza" title="Informativa privacy" align="start">
-            Ultimo aggiornamento: 20 novembre 2026
-          </PageTitle>
-        </div>
+        <PageTitle eyebrow="Trasparenza" title="Informativa privacy" align="start">
+          Ultimo aggiornamento: 20 novembre 2026
+        </PageTitle>
       }
     >
-      <div className="privacy-content privacy-width">
+      <div className="privacy-content reading-width">
         <section className="privacy-section">
           <h2>1. Titolare del trattamento</h2>
           <p>
@@ -134,6 +128,6 @@ export function PrivacyPage() {
           </p>
         </section>
       </div>
-    </UtilityLayout>
+    </PageLayout>
   );
 }

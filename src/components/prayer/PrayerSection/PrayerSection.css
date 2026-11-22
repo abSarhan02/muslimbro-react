@@ -25,7 +25,6 @@
 .prayer-card-face {
   grid-area: 1 / 1;
   min-width: 0;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: rotateY(0deg);
   visibility: visible;
@@ -37,12 +36,7 @@
   transition-delay: 0.4s; /* metà della rotazione */
 }
 .prayer-overview {
-  --focus: var(--on-sky);
   padding: var(--space-5);
-  border-radius: var(--radius);
-  background: var(--sky-surface);
-  box-shadow: var(--shadow);
-  color: var(--on-sky);
 }
 .prayer-context {
   margin: 0 var(--space-1) 18px;
@@ -79,9 +73,6 @@
 .card-switch:hover {
   background: var(--light-bg-hover);
 }
-.card-switch.qibla-only {
-  display: none;
-}
 .date-line {
   display: flex;
   flex-wrap: wrap;
@@ -112,17 +103,17 @@
   font-size: var(--fs-xs);
   text-align: center;
 }
-@media (max-width: 1050px) {
+@media (width <= 1050px) {
   .prayer-layout {
     gap: 40px;
   }
 }
-@media (max-width: 850px) {
+@media (width <= 850px) {
   .prayer-layout {
     gap: 28px;
   }
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .prayer-layout {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -136,13 +127,8 @@
     min-height: 280px;
   }
 }
-@media (max-width: 360px) {
+@media (width <= 360px) {
   .prayer-overview {
     padding-inline: var(--space-3);
-  }
-}
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-  .card-switch.qibla-only {
-    display: inline-flex;
   }
 }

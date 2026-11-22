@@ -1,19 +1,4 @@
 /** LISTA ORARI */
-.upcoming-label {
-  display: inline-flex;
-  align-items: center;
-  margin: 0;
-  padding: 2px var(--space-2);
-  border-radius: var(--radius-sm);
-  background: var(--sky);
-  color: var(--on-sky);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  line-height: 1.5;
-}
-.prayer-time {
-  font-variant-numeric: tabular-nums;
-}
 .prayer-row {
   display: flex;
   justify-content: space-between;
@@ -57,6 +42,7 @@
 .prayer-time {
   flex-shrink: 0;
   font: 400 var(--fs-title) / var(--lh-heading) var(--font-display);
+  font-variant-numeric: tabular-nums;
 }
 /* Alba più discreta */
 .prayer-row.is-sunrise {
@@ -65,12 +51,12 @@
 .is-sunrise .prayer-image {
   opacity: 0.65;
 }
-@media (max-width: 850px) {
+@media (width <= 850px) {
   .prayer-identity {
     gap: 10px;
   }
 }
-@media (max-width: 360px) {
+@media (width <= 360px) {
   .prayer-row {
     padding-inline: var(--space-3);
   }

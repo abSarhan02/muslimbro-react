@@ -1,17 +1,12 @@
 /** QIBLA */
-/* Su desktop è nascosta (vedi media query in fondo) */
+/* Retro della card orari (solo telefono e tablet) */
 .compass-panel {
-  --focus: var(--on-sky);
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-4);
   width: 100%;
   padding: var(--space-5);
-  border-radius: var(--radius);
-  background: var(--sky-surface);
-  box-shadow: var(--shadow);
-  color: var(--on-sky);
   text-align: center;
 }
 /* Il retro parte già girato */
@@ -31,7 +26,7 @@
   overflow-wrap: anywhere;
 }
 
-/* =====BUSSOLA===== */
+/* Bussola */
 /* Contenitore per la tacca (sta fuori dal cerchio) */
 .compass-wrap {
   position: relative;
@@ -182,7 +177,7 @@
   transform: translate(-50%, -50%);
 }
 
-/* =====INFO===== */
+/* Info sotto la bussola */
 .qibla-status {
   max-width: 300px;
   min-height: calc(2 * 1.5em);
@@ -248,17 +243,12 @@
     transition: none;
   }
 }
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-  .compass-panel.qibla-only {
-    display: flex;
-  }
-}
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .compass-panel {
     padding: 20px var(--space-4);
   }
 }
-@media (max-width: 360px) {
+@media (width <= 360px) {
   .compass-panel {
     padding-inline: var(--space-3);
   }

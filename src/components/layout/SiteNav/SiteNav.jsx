@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { useMediaQuery } from "../../../hooks/useMediaQuery.js";
+import { useDismiss } from "../../../hooks/useDismiss.js";
+import { QIBLA_DEVICE_QUERY, useMediaQuery } from "../../../hooks/useMediaQuery.js";
 import { useScrolled } from "../../../hooks/useScrolled.js";
 import { Brand } from "../../common/Brand/Brand.jsx";
 import { ThemeToggle } from "../../common/ThemeToggle/ThemeToggle.jsx";
@@ -8,6 +9,7 @@ import "./SiteNav.css";
 
 // Link del menu
 // menuLabel è il testo del menu a tendina (mobile)
+// qiblaOnly: solo su telefono e tablet
 const LINKS = [
   { to: "/", label: "Home", menuLabel: "Home" },
   { to: "/#prayer-times", label: "Preghiere", menuLabel: "Orari di preghiera" },
@@ -22,6 +24,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
   const scrolled = useScrolled(24);
   const desktop = useMediaQuery("(min-width: 851px)");
+  const qiblaDevice = useMediaQuery(QIBLA_DEVICE_QUERY);
   const { pathname } = useLocation();
   const navRef = useRef(null);
   const buttonRef = useRef(null);
@@ -30,33 +33,14 @@ export function SiteNav() {
   const isHome = pathname === "/";
 
   // Chiudi il menu cliccando fuori o con Esc
-  useEffect(() => {
-    if (!open) return;
-
-    const onClick = (event) => {
-      if (!navRef.current?.contains(event.target)) setOpen(false);
-    };
-    const onKeyDown = (event) => {
-      if (event.key !== "Escape") return;
-      setOpen(false);
-      buttonRef.current?.focus();
-    };
-
-    document.addEventListener("click", onClick);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("click", onClick);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+  useDismiss(open, setOpen, navRef, buttonRef);
 
   // Su desktop chiudi il menu a tendina
   useEffect(() => {
     if (desktop) setOpen(false);
   }, [desktop]);
 
-  // Qibla solo su mobile (classe qibla-only)
-  const linkClass = (link) => (link.qiblaOnly ? "qibla-only" : undefined);
+  const links = LINKS.filter((link) => !link.qiblaOnly || qiblaDevice);
 
   let navClass = "site-nav";
   if (isHome) navClass += " is-home";
@@ -68,8 +52,8 @@ export function SiteNav() {
         <Brand label="muslimbro., home" />
 
         <div className="nav-list">
-          {LINKS.map((link) => (
-            <Link key={link.to} className={linkClass(link)} to={link.to}>
+          {links.map((link) => (
+            <Link key={link.to} to={link.to}>
               {link.label}
             </Link>
           ))}
@@ -95,8 +79,8 @@ export function SiteNav() {
 
       {/* Dropdown menu */}
       <div className={`dropdown${open ? " open" : ""}`} id="dropdown-menu">
-        {LINKS.map((link) => (
-          <Link key={link.to} className={linkClass(link)} to={link.to} onClick={() => setOpen(false)}>
+        {links.map((link) => (
+          <Link key={link.to} to={link.to} onClick={() => setOpen(false)}>
             {link.menuLabel}
           </Link>
         ))}

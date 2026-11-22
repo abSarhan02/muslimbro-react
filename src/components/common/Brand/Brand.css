@@ -19,7 +19,7 @@
 .brand-dot {
   color: var(--sky);
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .brand {
     font-size: 1.5625rem;
   }

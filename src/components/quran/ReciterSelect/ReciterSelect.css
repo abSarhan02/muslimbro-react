@@ -70,7 +70,7 @@
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow-button);
-  animation: reciter-list-in var(--duration) var(--ease);
+  animation: drop-in var(--duration) var(--ease);
 }
 .reciter-list button {
   display: flex;
@@ -109,17 +109,7 @@
   border-bottom: 2px solid currentColor;
   transform: rotate(45deg) translateY(-2px);
 }
-@keyframes reciter-list-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .reciter-select {
     width: calc(100% - 2 * var(--gutter));
     padding-inline: 10px;

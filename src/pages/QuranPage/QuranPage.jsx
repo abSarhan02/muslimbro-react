@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { ErrorMessage } from "../../components/common/ErrorMessage/ErrorMessage.jsx";
 import { Loader } from "../../components/common/Loader/Loader.jsx";
 import { TabList, TabPanel } from "../../components/common/Tabs/Tabs.jsx";
+import { PageLayout } from "../../components/layout/PageLayout/PageLayout.jsx";
 import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
-import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
 import { AudioList } from "../../components/quran/AudioList/AudioList.jsx";
 import { ReciterSelect } from "../../components/quran/ReciterSelect/ReciterSelect.jsx";
 import { SurahList } from "../../components/quran/SurahList/SurahList.jsx";
 import { findReciter } from "../../data/reciters.js";
 import { useAudioPlayer } from "../../hooks/useAudioPlayer.js";
+import { usePageTitle } from "../../hooks/usePageTitle.js";
 import { getSurahs } from "../../services/quranApi.js";
 import { filterSurahs } from "../../utils/quranText.js";
 import { readPreference, savePreference, STORAGE_KEYS } from "../../utils/storage.js";
@@ -37,10 +38,7 @@ export function QuranPage() {
     savePreference(STORAGE_KEYS.reciter, next.id);
   }
 
-  // Titolo della pagina
-  useEffect(() => {
-    document.title = "Il Corano | MuslimBro";
-  }, []);
+  usePageTitle("Il Corano");
 
   // Carica la lista delle sure
   useEffect(() => {
@@ -60,11 +58,12 @@ export function QuranPage() {
   let tabContent;
   if (error) tabContent = <ErrorMessage message={error} onRetry={() => setAttempt((value) => value + 1)} />;
   else if (!surahs) tabContent = <Loader label="Caricamento delle sure" />;
+  else if (!filtered.length) tabContent = <p className="empty-state">Nessuna sura trovata.</p>;
   else if (tab === "surahs") tabContent = <SurahList surahs={filtered} />;
   else tabContent = <AudioList surahs={filtered} player={player} reciter={reciter} />;
 
   return (
-    <UtilityLayout
+    <PageLayout
       band={
         <PageTitle eyebrow="Lettura e ascolto" title="Il Corano">
           Le sure in arabo, con traslitterazione e traduzione italiana, da leggere o ascoltare.
@@ -95,6 +94,6 @@ export function QuranPage() {
           {tabContent}
         </TabPanel>
       </div>
-    </UtilityLayout>
+    </PageLayout>
   );
 }

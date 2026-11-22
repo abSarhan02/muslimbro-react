@@ -3,9 +3,10 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { ErrorMessage } from "../../components/common/ErrorMessage/ErrorMessage.jsx";
 import { Loader } from "../../components/common/Loader/Loader.jsx";
 import { ThemeToggle } from "../../components/common/ThemeToggle/ThemeToggle.jsx";
-import { UtilityLayout } from "../../components/layout/UtilityLayout/UtilityLayout.jsx";
+import { PageLayout } from "../../components/layout/PageLayout/PageLayout.jsx";
 import { SurahText } from "../../components/quran/SurahText/SurahText.jsx";
 import { useAudioPlayer } from "../../hooks/useAudioPlayer.js";
+import { usePageTitle } from "../../hooks/usePageTitle.js";
 import { getSurah } from "../../services/quranApi.js";
 import { surahTitle, validAyah } from "../../utils/quranText.js";
 import { NotFoundPage } from "../NotFoundPage/NotFoundPage.jsx";
@@ -31,10 +32,7 @@ export function SurahPage() {
   const title = surahTitle(surah ?? { number: surahNumber });
   const target = surah ? validAyah(surah, Number(searchParams.get("ayah"))) : null;
 
-  // Titolo della pagina
-  useEffect(() => {
-    document.title = `${title} | MuslimBro`;
-  }, [title]);
+  usePageTitle(title);
 
   // Carica il testo della sura
   useEffect(() => {
@@ -79,7 +77,7 @@ export function SurahPage() {
 
   return (
     // Senza navbar e footer
-    <UtilityLayout hideChrome mainClassName="is-reading">
+    <PageLayout hideChrome mainClassName="is-reading">
       <section
         className={`quran-reader${showTransliteration ? " show-transliteration" : ""}`}
         aria-labelledby="surah-title-it"
@@ -109,7 +107,7 @@ export function SurahPage() {
           </div>
         </div>
 
-        <div className="reader-content">
+        <div className="reader-content reading-width">
           <header className="sura-header">
             <h1 ref={titleRef} className="surah-title-ar" lang="ar" dir="rtl" tabIndex={-1}>
               {surah?.name}
@@ -136,6 +134,6 @@ export function SurahPage() {
           </div>
         </div>
       </section>
-    </UtilityLayout>
+    </PageLayout>
   );
 }

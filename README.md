@@ -57,20 +57,20 @@ npm run preview  # prova la build
 src/
 ├── main.jsx          # monta <App /> dentro <BrowserRouter>
 ├── App.jsx           # rotte
-├── index.css         # stili globali: colori, tema chiaro/scuro, bottoni
+├── index.css         # colori, tema chiaro/scuro, bottoni, card e classi comuni
 ├── pages/            # una cartella per pagina
 ├── components/
 │   ├── common/       # Brand, Loader, ErrorMessage, Tabs, ThemeToggle
-│   ├── layout/       # SiteNav, UtilityLayout, PageTitle, ScrollToTop
+│   ├── layout/       # SiteNav, PageLayout, PageTitle, ScrollToTop
 │   ├── home/         # sezioni della home
 │   ├── prayer/       # card degli orari
 │   ├── qibla/        # bussola
 │   ├── quran/        # lista sure, audio, testo
 │   └── azkar/        # card di un dhikr
-├── hooks/            # useCompass, usePrayerSchedule, useTheme, ...
-├── services/         # chiamate alle API
+├── hooks/            # logica riutilizzabile (orari, bussola, audio, tema, titolo pagina...)
+├── services/         # chiamate alle API (orari, Corano, posizione)
 ├── utils/            # funzioni senza React (orari, Qibla, testo arabo, localStorage)
-└── data/             # testi fissi: Azkar, nomi delle sure, pilastri, versetti
+└── data/             # testi fissi: Azkar, nomi delle sure, pilastri, versetti, email
 ```
 
 Ogni componente ha la sua cartella con `.jsx` e `.css`:
@@ -81,7 +81,24 @@ components/home/Hero/
 └── Hero.css
 ```
 
-In `public/` ci sono immagini, favicon, `og-image.png` per le anteprime social e `theme-init.js`, che mette il tema salvato prima che si carichi il CSS (così non c'è il flash bianco in modalità scura).
+In `public/` ci sono immagini (`images/`), icone del sito (`icons/`), `og-image.png` per le anteprime social e `theme-init.js`, che mette il tema salvato prima che si carichi il CSS (così non c'è il flash bianco in modalità scura).
+
+## Dove modificare cosa
+
+| Cosa | Dove |
+| --- | --- |
+| Colori, font, spazi | variabili in cima a `src/index.css` (sotto `[data-theme="dark"]` il tema scuro) |
+| Bottoni e card | `src/index.css`: `.button`, `.card` (chiara), `.card-sky` (azzurra), `.badge` |
+| Email e titolo del sito | `src/data/site.js` |
+| Titolo di una pagina | `usePageTitle("...")` dentro la pagina |
+| Link del menu | `LINKS` in `components/layout/SiteNav/SiteNav.jsx` |
+| Testi della home | componenti in `components/home/` |
+| Pilastri, versetti del giorno, lettori, Azkar | file in `src/data/` |
+| Servizi esterni elencati nella privacy | `SERVICES` in `pages/PrivacyPage/PrivacyPage.jsx` |
+
+Le pagine interne usano `PageLayout` (navbar, fascia azzurra in alto, footer) e `PageTitle` per il titolo.
+
+Le media query usano la sintassi nuova, es. `@media (width <= 650px)`. In build Vite la converte in quella classica, così funziona anche sugli iPhone vecchi (vedi `cssTarget` in `vite.config.js`).
 
 ## La bussola della Qibla
 

@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { CONTACT_EMAIL } from "../../../data/site.js";
 import { Brand } from "../../common/Brand/Brand.jsx";
 import "./HomeFooter.css";
 
@@ -18,7 +19,7 @@ export function HomeFooter() {
         <div className="footer-contact">
           <h2>Restiamo in contatto.</h2>
           <p>Hai una domanda o un suggerimento?</p>
-          <a href="mailto:muslimbro.it@gmail.com">muslimbro.it@gmail.com</a>
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         </div>
       </div>
 

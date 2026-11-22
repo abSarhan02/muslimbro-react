@@ -4,8 +4,6 @@ import "./SurahList.css";
 
 // Lista delle sure da leggere
 export function SurahList({ surahs }) {
-  if (!surahs.length) return <p className="empty-state">Nessuna sura trovata.</p>;
-
   return surahs.map((surah) => (
     <Link key={surah.number} className="card surah-card" to={`/quran/${surah.number}`}>
       <span className="card-title" lang="ar" dir="rtl">

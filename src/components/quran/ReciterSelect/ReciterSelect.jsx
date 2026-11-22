@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { findReciter, RECITERS } from "../../../data/reciters.js";
+import { useDismiss } from "../../../hooks/useDismiss.js";
 import "./ReciterSelect.css";
 
 // Scelta del lettore (tab Ascolto)
@@ -12,25 +13,7 @@ export function ReciterSelect({ value, onChange }) {
   const current = findReciter(value);
 
   // Chiudi cliccando fuori o con Esc
-  useEffect(() => {
-    if (!open) return;
-
-    const onClick = (event) => {
-      if (!wrapperRef.current?.contains(event.target)) setOpen(false);
-    };
-    const onKeyDown = (event) => {
-      if (event.key !== "Escape") return;
-      setOpen(false);
-      buttonRef.current?.focus();
-    };
-
-    document.addEventListener("click", onClick);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("click", onClick);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+  useDismiss(open, setOpen, wrapperRef, buttonRef);
 
   // Aprendo, focus sul lettore scelto
   useEffect(() => {

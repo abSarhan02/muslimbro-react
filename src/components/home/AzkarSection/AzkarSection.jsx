@@ -21,7 +21,7 @@ export function AzkarSection() {
 
       <div className="azkar-choices">
         {AZKAR_CHOICES.map((choice) => (
-          <Link key={choice.mode} className="azkar-choice" to={`/azkar?type=${choice.mode}`}>
+          <Link key={choice.mode} className="azkar-choice card-sky" to={`/azkar?type=${choice.mode}`}>
             <img src={choice.image} alt="" width="96" height="96" loading="lazy" />
             <span className="azkar-choice-copy">
               <span className="azkar-choice-label">{choice.label}</span>

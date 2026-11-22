@@ -10,7 +10,7 @@ export function DailyVerse() {
   const quranLink = verse ? `/quran/${verse.surah}?ayah=${verse.ayah}` : "/quran";
 
   return (
-    <section className="daily-verse page-width" aria-labelledby="daily-verse-heading">
+    <section className="daily-verse card-sky page-width" aria-labelledby="daily-verse-heading">
       <div className="daily-verse-heading">
         <p className="eyebrow">Una pausa di riflessione</p>
         <h2 id="daily-verse-heading">Un versetto per te.</h2>

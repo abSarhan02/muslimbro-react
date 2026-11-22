@@ -1,18 +1,18 @@
 /** LAYOUT PAGINE INTERNE */
 /* Footer sempre in fondo anche con poco contenuto */
-.utility-page {
+.page-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
 }
-.utility-main {
+.page-main {
   position: relative;
   isolation: isolate;
   flex: 1;
   padding-bottom: var(--space-8);
 }
-.utility-main.is-reading {
+.page-main.is-reading {
   padding-bottom: 0;
 }
 .page-band {
@@ -35,31 +35,30 @@
   background: linear-gradient(180deg, var(--band-bg) 0, var(--soft-blue) 250px, var(--page-bg) 430px);
   pointer-events: none;
 }
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .page-band {
     padding: calc(var(--nav-height) + var(--space-6)) 0 var(--space-6);
     margin-bottom: var(--space-5);
   }
 }
-.utility-footer {
+.page-footer {
   /* Sopra la sfumatura della fascia */
   position: relative;
   padding: var(--space-7) 0 var(--space-6);
   background: var(--footer-bg);
   color: var(--footer-text);
 }
-.utility-footer-inner {
+.page-footer-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-4) var(--space-5);
 }
-.utility-footer-inner > a:last-child {
+.page-footer-inner > a:last-child {
   font-size: var(--fs-sm);
   font-weight: 600;
 }
-.utility-footer-inner > a:last-child:hover {
+.page-footer-inner > a:last-child:hover {
   text-decoration: underline;
-  text-underline-offset: 4px;
 }

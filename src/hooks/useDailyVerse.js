@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FEATURED_VERSES } from "../data/featuredVerses.js";
-import { getVerse } from "../services/verseApi.js";
+import { getVerse } from "../services/quranApi.js";
 import { getDailyVerseIndex, getRandomVerseIndex } from "../utils/dailyVerse.js";
 
 // Versetto del giorno
