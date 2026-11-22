@@ -42,7 +42,6 @@ export function QuranPage() {
 
   // Carica la lista delle sure
   useEffect(() => {
-    setError("");
     getSurahs()
       .then(setSurahs)
       .catch((err) => setError(`Non è stato possibile caricare il Corano. ${err.message}`));
@@ -52,11 +51,16 @@ export function QuranPage() {
   const { stop } = player;
   useEffect(() => stop(), [tab, query, reciter, stop]);
 
+  function retry() {
+    setError("");
+    setAttempt((value) => value + 1);
+  }
+
   const filtered = surahs ? filterSurahs(surahs, query) : [];
 
   // Contenuto del tab
   let tabContent;
-  if (error) tabContent = <ErrorMessage message={error} onRetry={() => setAttempt((value) => value + 1)} />;
+  if (error) tabContent = <ErrorMessage message={error} onRetry={retry} />;
   else if (!surahs) tabContent = <Loader label="Caricamento delle sure" />;
   else if (!filtered.length) tabContent = <p className="empty-state">Nessuna sura trovata.</p>;
   else if (tab === "surahs") tabContent = <SurahList surahs={filtered} />;

@@ -20,15 +20,19 @@ export function SurahPage() {
   const surahNumber = Number(number);
   const isValidNumber = Number.isInteger(surahNumber) && surahNumber >= 1 && surahNumber <= 114;
 
-  const [result, setResult] = useState({ status: "loading", data: null, error: "" });
+  // number: la sura a cui si riferisce il risultato
+  const [result, setResult] = useState({ number: null, status: "loading", data: null, error: "" });
   const [attempt, setAttempt] = useState(0); // Per il pulsante Riprova
   const [showTransliteration, setShowTransliteration] = useState(false);
   const player = useAudioPlayer();
   const titleRef = useRef(null);
   const contentRef = useRef(null);
 
+  // Se il risultato è di un'altra sura, sto ancora caricando
+  const status = result.number === surahNumber ? result.status : "loading";
+
   // Dati della sura (arrivano col testo arabo)
-  const surah = result.data?.arabic;
+  const surah = status === "ready" ? result.data.arabic : null;
   const title = surahTitle(surah ?? { number: surahNumber });
   const target = surah ? validAyah(surah, Number(searchParams.get("ayah"))) : null;
 
@@ -38,10 +42,9 @@ export function SurahPage() {
   useEffect(() => {
     if (!isValidNumber) return;
     let active = true;
-    setResult({ status: "loading", data: null, error: "" });
     getSurah(surahNumber).then(
-      (data) => active && setResult({ status: "ready", data, error: "" }),
-      (error) => active && setResult({ status: "error", data: null, error: error.message }),
+      (data) => active && setResult({ number: surahNumber, status: "ready", data, error: "" }),
+      (error) => active && setResult({ number: surahNumber, status: "error", data: null, error: error.message }),
     );
     return () => {
       active = false;
@@ -59,11 +62,17 @@ export function SurahPage() {
 
   // Scrolla al versetto di ?ayah=
   useEffect(() => {
-    if (result.status !== "ready" || !target) return;
+    if (status !== "ready" || !target) return;
     const verse = contentRef.current?.querySelector(`#ayah-${target}`);
     verse?.scrollIntoView({ block: "start", behavior: "instant" });
     verse?.focus({ preventScroll: true });
-  }, [result.status, target]);
+  }, [status, target]);
+
+  // Riprova: torna in caricamento e richiede la sura
+  function retry() {
+    setResult({ number: null, status: "loading", data: null, error: "" });
+    setAttempt((value) => value + 1);
+  }
 
   // Esc torna alla lista
   function onKeyDown(event) {
@@ -121,16 +130,16 @@ export function SurahPage() {
             ref={contentRef}
             id="surah-content"
             className="surah-text"
-            aria-busy={result.status === "loading" || undefined}
+            aria-busy={status === "loading" || undefined}
           >
-            {result.status === "loading" && <Loader label="Caricamento della sura" />}
-            {result.status === "error" && (
+            {status === "loading" && <Loader label="Caricamento della sura" />}
+            {status === "error" && (
               <ErrorMessage
                 message={`Non è stato possibile caricare la sura. ${result.error}`}
-                onRetry={() => setAttempt((value) => value + 1)}
+                onRetry={retry}
               />
             )}
-            {result.status === "ready" && <SurahText data={result.data} target={target} player={player} />}
+            {status === "ready" && <SurahText data={result.data} target={target} player={player} />}
           </div>
         </div>
       </section>

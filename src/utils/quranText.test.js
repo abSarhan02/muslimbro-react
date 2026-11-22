@@ -1,6 +1,6 @@
-﻿import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
-import { BASMALA, verseText } from "../src/utils/quranText.js";
+import { BASMALA, verseText } from "./quranText.js";
 
 // Test del basmala
 test("un versetto senza prefisso rimane intero", () => {

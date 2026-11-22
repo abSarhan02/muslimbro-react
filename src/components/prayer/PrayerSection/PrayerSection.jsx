@@ -16,8 +16,7 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", { dateStyle: "full" });
 // Davanti gli orari, dietro la Qibla (solo mobile)
 export function PrayerSection() {
   const schedule = usePrayerSchedule();
-  const card = usePrayerCard();
-  const { refs } = card;
+  const { mobile, flipped, frontRef, openButtonRef, closeButtonRef, open, close, onKeyDown } = usePrayerCard();
 
   return (
     <section
@@ -37,28 +36,28 @@ export function PrayerSection() {
           <NextPrayer schedule={schedule} />
         </div>
 
-        <div className={`prayer-card${card.flipped ? " is-flipped" : ""}`} onKeyDown={card.onKeyDown}>
+        <div className={`prayer-card${flipped ? " is-flipped" : ""}`} onKeyDown={onKeyDown}>
           <div className="prayer-card-inner">
             {/* Fronte: orari di oggi */}
             <div
-              ref={refs.front}
+              ref={frontRef}
               className="prayer-overview card-sky prayer-card-face"
               id="prayer-card-front"
-              aria-hidden={card.flipped}
-              inert={card.flipped}
+              aria-hidden={flipped}
+              inert={flipped}
               tabIndex={-1}
             >
               <div className="prayer-context">
                 <div className="prayer-card-heading">
                   <h3>Orari di oggi</h3>
-                  {card.mobile && (
+                  {mobile && (
                     <button
-                      ref={refs.openButton}
+                      ref={openButtonRef}
                       className="card-switch"
                       type="button"
                       aria-controls="qibla"
-                      aria-expanded={card.flipped}
-                      onClick={card.open}
+                      aria-expanded={flipped}
+                      onClick={open}
                     >
                       Apri Qibla
                     </button>
@@ -82,12 +81,12 @@ export function PrayerSection() {
             </div>
 
             {/* Retro: Qibla (solo telefono e tablet) */}
-            {card.mobile && (
+            {mobile && (
               <QiblaPanel
                 location={schedule.location}
-                hidden={!card.flipped}
-                closeButtonRef={refs.closeButton}
-                onClose={card.close}
+                hidden={!flipped}
+                closeButtonRef={closeButtonRef}
+                onClose={close}
               />
             )}
           </div>

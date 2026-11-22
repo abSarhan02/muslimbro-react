@@ -12,5 +12,6 @@ npm-debug.log*
 .vscode/
 .codegraph/
 
-# Note locali per l'editor
+# Note locali (solo sul mio PC)
 CLAUDE.md
+docs/

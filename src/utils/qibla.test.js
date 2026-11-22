@@ -1,4 +1,4 @@
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
   angleDifference,
@@ -7,7 +7,7 @@ import {
   headingFromOrientation,
   magneticDeclination,
   smoothAngle,
-} from "../src/utils/qibla.js";
+} from "./qibla.js";
 
 // Valori noti arrotondati al grado
 test("da Londra e da Roma la Qibla è verso sud-est", () => {

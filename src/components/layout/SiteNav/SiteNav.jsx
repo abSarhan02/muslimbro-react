@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useDismiss } from "../../../hooks/useDismiss.js";
 import { QIBLA_DEVICE_QUERY, useMediaQuery } from "../../../hooks/useMediaQuery.js";
@@ -32,13 +32,11 @@ export function SiteNav() {
   // Nella home la navbar è trasparente sopra la hero
   const isHome = pathname === "/";
 
-  // Chiudi il menu cliccando fuori o con Esc
-  useDismiss(open, setOpen, navRef, buttonRef);
+  // Su desktop il menu a tendina è sempre chiuso
+  const menuOpen = open && !desktop;
 
-  // Su desktop chiudi il menu a tendina
-  useEffect(() => {
-    if (desktop) setOpen(false);
-  }, [desktop]);
+  // Chiudi il menu cliccando fuori o con Esc
+  useDismiss(menuOpen, setOpen, navRef, buttonRef);
 
   const links = LINKS.filter((link) => !link.qiblaOnly || qiblaDevice);
 
@@ -66,10 +64,10 @@ export function SiteNav() {
             ref={buttonRef}
             className="icon-button nav-toggle"
             type="button"
-            aria-expanded={open}
+            aria-expanded={menuOpen}
             aria-controls="dropdown-menu"
-            aria-label={open ? "Chiudi il menu" : "Apri il menu"}
-            onClick={() => setOpen((value) => !value)}
+            aria-label={menuOpen ? "Chiudi il menu" : "Apri il menu"}
+            onClick={() => setOpen(!menuOpen)}
           >
             <span></span>
             <span></span>
@@ -78,7 +76,7 @@ export function SiteNav() {
       </div>
 
       {/* Dropdown menu */}
-      <div className={`dropdown${open ? " open" : ""}`} id="dropdown-menu">
+      <div className={`dropdown${menuOpen ? " open" : ""}`} id="dropdown-menu">
         {links.map((link) => (
           <Link key={link.to} to={link.to} onClick={() => setOpen(false)}>
             {link.menuLabel}

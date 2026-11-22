@@ -4,7 +4,9 @@
   let savedTheme;
   try {
     savedTheme = localStorage.getItem("muslimbro-theme");
-  } catch {}
+  } catch {
+    // localStorage bloccato: tema chiaro
+  }
   const theme = savedTheme === "dark" ? "dark" : "light";
   document.documentElement.dataset.theme = theme;
   const meta = document.querySelector('meta[name="theme-color"]');

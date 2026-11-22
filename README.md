@@ -18,7 +18,8 @@ Online su [muslimbro.it](https://muslimbro.it).
 - React 19 + Vite
 - React Router per le pagine
 - CSS normale, un file per componente (niente framework)
-- Test con il test runner di Node (`node --test`)
+- Test con Vitest, accanto ai file che testano (es. `qibla.test.js` vicino a `qibla.js`)
+- ESLint con la configurazione del template di Vite
 
 API usate (tutte pubbliche, niente chiavi):
 
@@ -47,6 +48,7 @@ Serve Node.js 20.19 o più recente.
 npm install
 npm run dev      # http://127.0.0.1:4173
 npm test         # test di orari, countdown, Qibla e testo arabo
+npm run lint     # controllo del codice con ESLint
 npm run build    # build in dist/
 npm run preview  # prova la build
 ```

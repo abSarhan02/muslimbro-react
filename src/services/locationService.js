@@ -48,7 +48,7 @@ export async function getCurrentLocation() {
     try {
       const data = await fetchJSON("https://ipapi.co/json/");
       if (!Number.isFinite(data.latitude) || !Number.isFinite(data.longitude))
-        throw new Error("Posizione IP non valida.");
+        throw new Error("Posizione IP non valida.", { cause: browserError });
       return {
         latitude: data.latitude,
         longitude: data.longitude,
@@ -56,8 +56,10 @@ export async function getCurrentLocation() {
         approximate: true,
         denied: Boolean(browserError.denied),
       };
-    } catch {
-      const error = new Error(`${browserError.message} Non è disponibile neppure la posizione approssimativa.`);
+    } catch (ipError) {
+      const error = new Error(`${browserError.message} Non è disponibile neppure la posizione approssimativa.`, {
+        cause: ipError,
+      });
       error.denied = Boolean(browserError.denied);
       throw error;
     }

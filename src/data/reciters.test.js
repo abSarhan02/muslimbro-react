@@ -1,7 +1,7 @@
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
-import { DEFAULT_RECITER, findReciter, RECITERS } from "../src/data/reciters.js";
-import { surahAudioUrl } from "../src/services/quranApi.js";
+import { DEFAULT_RECITER, findReciter, RECITERS } from "./reciters.js";
+import { surahAudioUrl } from "../services/quranApi.js";
 
 test("trova il lettore salvato", () => {
   assert.equal(findReciter("alafasy").folder, "mishaari_raashid_al_3afaasee");

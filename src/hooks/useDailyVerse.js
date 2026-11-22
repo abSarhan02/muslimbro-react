@@ -13,31 +13,41 @@ export function useDailyVerse() {
   // Per ignorare le risposte vecchie
   const requestRef = useRef(0);
 
-  const load = useCallback(async ({ randomize = false } = {}) => {
+  // Scarica il versetto numero index della lista
+  const fetchVerse = useCallback((index) => {
     const request = ++requestRef.current;
-    setLoading(true);
-    setFailed(false);
+    const isCurrent = () => request === requestRef.current;
 
-    const index = randomize ? getRandomVerseIndex(indexRef.current) : (indexRef.current ?? getDailyVerseIndex());
-    const reference = FEATURED_VERSES[index];
-
-    try {
-      const text = await getVerse(reference);
-      if (request !== requestRef.current) return;
-      indexRef.current = index;
-      setVerse({ ...reference, ...text });
-    } catch (error) {
-      if (request !== requestRef.current) return;
-      setFailed(true);
-      console.error("Caricamento del versetto non riuscito:", error);
-    } finally {
-      if (request === requestRef.current) setLoading(false);
-    }
+    getVerse(FEATURED_VERSES[index])
+      .then((text) => {
+        if (!isCurrent()) return;
+        indexRef.current = index;
+        setVerse({ ...FEATURED_VERSES[index], ...text });
+      })
+      .catch((error) => {
+        if (!isCurrent()) return;
+        setFailed(true);
+        console.error("Caricamento del versetto non riuscito:", error);
+      })
+      .finally(() => {
+        if (isCurrent()) setLoading(false);
+      });
   }, []);
 
+  // Mostra il caricamento e scarica
+  const load = useCallback(
+    (index) => {
+      setLoading(true);
+      setFailed(false);
+      fetchVerse(index);
+    },
+    [fetchVerse],
+  );
+
+  // Primo caricamento
   useEffect(() => {
-    load();
-  }, [load]);
+    fetchVerse(getDailyVerseIndex());
+  }, [fetchVerse]);
 
   // A mezzanotte carica il nuovo versetto
   useEffect(() => {
@@ -46,8 +56,7 @@ export function useDailyVerse() {
       const now = new Date();
       const nextDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
       timer = setTimeout(() => {
-        indexRef.current = null;
-        load();
+        load(getDailyVerseIndex());
         scheduleMidnight();
       }, nextDay - now);
     };
@@ -59,7 +68,7 @@ export function useDailyVerse() {
     verse,
     loading,
     failed,
-    retry: () => load(),
-    randomize: () => load({ randomize: true }),
+    retry: () => load(indexRef.current ?? getDailyVerseIndex()),
+    randomize: () => load(getRandomVerseIndex(indexRef.current)),
   };
 }

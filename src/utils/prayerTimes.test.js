@@ -1,7 +1,7 @@
-﻿import test from "node:test";
+import { afterEach, test, vi } from "vitest";
 import assert from "node:assert/strict";
-import { getPrayerTimes } from "../src/services/prayerApi.js";
-import { getNextPrayer, formatCountdown, formatTime } from "../src/utils/prayerTimes.js";
+import { getPrayerTimes } from "../services/prayerApi.js";
+import { getNextPrayer, formatCountdown, formatTime } from "./prayerTimes.js";
 
 // Orari di prova
 const today = [
@@ -14,18 +14,20 @@ const today = [
 ];
 const tomorrow = [{ name: "Fajr", time: "05:23" }];
 
+// Rimetti il fetch vero dopo ogni test
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
 // Risposta dell'API (mock)
-test("leggo l'orario del sorgere del sole dal campo Sunrise del servizio", async (context) => {
-  context.mock.method(
-    globalThis,
-    "fetch",
-    async () =>
-      new Response(
-        JSON.stringify({
-          code: 200,
-          data: { timings: Object.fromEntries(today.map(({ name, time }) => [name, time])) },
-        }),
-      ),
+test("leggo l'orario del sorgere del sole dal campo Sunrise del servizio", async () => {
+  vi.spyOn(globalThis, "fetch").mockResolvedValue(
+    new Response(
+      JSON.stringify({
+        code: 200,
+        data: { timings: Object.fromEntries(today.map(({ name, time }) => [name, time])) },
+      }),
+    ),
   );
   const { schedule } = await getPrayerTimes(
     { latitude: 41.9028, longitude: 12.4964 },
