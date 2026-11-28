@@ -235,14 +235,6 @@
 .qibla-button {
   align-self: stretch;
 }
-/* Dati grezzi (?debug) */
-.compass-debug {
-  align-self: stretch;
-  margin: 0;
-  font-size: var(--fs-xs);
-  text-align: left;
-  white-space: pre-wrap;
-}
 .compass-help {
   max-width: 320px;
   font-size: var(--fs-sm);

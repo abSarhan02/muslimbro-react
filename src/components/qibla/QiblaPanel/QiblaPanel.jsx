@@ -7,9 +7,6 @@ import "./QiblaPanel.css";
 // Entro questi gradi considero il telefono allineato
 const ALIGNED_TOLERANCE = 5;
 
-// Dati grezzi della bussola con ?debug nell'indirizzo
-const DEBUG = new URLSearchParams(window.location.search).has("debug");
-
 const kmFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 0 });
 
 // Bussola Qibla (retro della card orari)
@@ -164,29 +161,12 @@ export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
             </button>
           )}
 
-          {DEBUG && (
-            <pre className="compass-debug">
-              {JSON.stringify(
-                {
-                  ...compass.debug,
-                  smooth: compass.heading,
-                  declination,
-                  heading,
-                  bearing,
-                  lat: location?.latitude,
-                  lon: location?.longitude,
-                },
-                (key, value) => (typeof value === "number" ? Math.round(value * 10) / 10 : value),
-                1,
-              )}
-            </pre>
-          )}
-
           <details ref={helpRef} className="compass-help">
             <summary>Direzione imprecisa?</summary>
             <p>
-              Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Tieni il telefono in
-              piano e muovilo lentamente disegnando un 8 nell’aria per alcuni secondi, poi controlla di nuovo.
+              Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Tieni il telefono
+              dritto e disegna lentamente un 8 nell’aria, inclinandolo seguendo la curva, per alcuni secondi. Poi
+              rimettilo in piano e controlla di nuovo.
             </p>
           </details>
         </div>
