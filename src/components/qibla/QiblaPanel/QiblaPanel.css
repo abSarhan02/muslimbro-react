@@ -61,11 +61,20 @@
   border-radius: 50%;
   background: var(--surface);
   box-shadow: var(--shadow);
-  transition: box-shadow var(--duration-s) var(--ease);
 }
 /* Allineato: anello bianco intorno */
-.compass-panel.is-aligned .compass {
-  box-shadow: 0 0 0 6px var(--cloud), var(--shadow);
+/* Cerchio dietro la bussola, non box-shadow: animato nella card girata, su Android diventava un quadrato */
+.compass-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--cloud);
+  opacity: 0;
+  transition: opacity var(--duration-s) var(--ease);
+}
+.compass-panel.is-aligned .compass-wrap::before {
+  opacity: 1;
 }
 .compass-rose,
 .compass-needle {
@@ -253,6 +262,7 @@
   line-height: var(--lh-reading);
 }
 @media (prefers-reduced-motion: reduce) {
+  .compass-wrap::before,
   .compass-rose,
   .compass-needle {
     transition: none;
