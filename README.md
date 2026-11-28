@@ -28,6 +28,8 @@ API usate (tutte pubbliche, niente chiavi):
 - QuranicAudio e Islamic Network per gli audio delle recitazioni
 - [ipapi](https://ipapi.co/) per la posizione approssimativa, solo se l'utente non dà quella precisa
 
+Statistiche: Cloudflare Web Analytics, attivato dal pannello di Cloudflare Pages (niente cookie, nessuno script nel codice).
+
 ## Pagine
 
 | Indirizzo | Pagina |

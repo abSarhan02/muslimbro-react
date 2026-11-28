@@ -33,6 +33,11 @@ const SERVICES = [
   { name: "AlQuran Cloud", use: "testo e traduzione del Corano", href: "https://alquran.cloud/" },
   { name: "QuranicAudio e Islamic Network", use: "file audio delle recitazioni" },
   { name: "Google Fonts", use: "caratteri tipografici", href: "https://policies.google.com/privacy" },
+  {
+    name: "Cloudflare",
+    use: "hosting del sito e statistiche anonime delle visite (Web Analytics, senza cookie)",
+    href: "https://www.cloudflare.com/privacypolicy/",
+  },
 ];
 
 // Pagina privacy
@@ -46,7 +51,7 @@ export function PrivacyPage() {
       footerLink={<a href={`mailto:${CONTACT_EMAIL}`}>Contatti</a>}
       band={
         <PageTitle eyebrow="Trasparenza" title="Informativa privacy" align="start">
-          Ultimo aggiornamento: 20 novembre 2026
+          Ultimo aggiornamento: 28 novembre 2026
         </PageTitle>
       }
     >
@@ -73,6 +78,12 @@ export function PrivacyPage() {
               fornire il servizio richiesto (art. 6.1.f GDPR).
             </li>
             <li>
+              <strong>Statistiche delle visite</strong>: con Cloudflare Web Analytics conto le pagine visitate, il
+              paese, il tipo di dispositivo e la velocità di caricamento, solo in forma aggregata. Non usa cookie, non
+              salva l’indirizzo IP e non permette di riconoscerti. Base giuridica: legittimo interesse a capire come
+              viene usato il sito e a migliorarlo (art. 6.1.f GDPR).
+            </li>
+            <li>
               <strong>Preferenze</strong>: tema chiaro o scuro (<code>muslimbro-theme</code>), scelta tra Azkar del
               mattino e della sera (<code>muslimbro-azkar-mode</code>) e lettore del Corano
               (<code>muslimbro-reciter</code>), salvati solo nel localStorage del tuo browser.
@@ -80,7 +91,7 @@ export function PrivacyPage() {
             </li>
           </ul>
           <p>
-            Il sito non usa cookie di profilazione, pubblicità o statistiche. Fornire la posizione è facoltativo: senza,
+            Il sito non usa cookie, pubblicità né strumenti di profilazione. Fornire la posizione è facoltativo: senza,
             gli orari si basano sulla posizione approssimativa oppure non sono disponibili.
           </p>
         </section>
