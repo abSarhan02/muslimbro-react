@@ -15,6 +15,8 @@ export function NotFoundPage() {
         </PageTitle>
       }
     >
+      {/* Google non deve indicizzare gli indirizzi sbagliati (React lo mette nel head) */}
+      <meta name="robots" content="noindex" />
       <p className="empty-state">
         <Link to="/">Torna alla home</Link>
       </p>
