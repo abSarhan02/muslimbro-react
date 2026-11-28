@@ -26,6 +26,23 @@
   overflow-wrap: anywhere;
 }
 
+/* Zona sotto il titolo (qui sopra compare la guida calibrazione) */
+.compass-area {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: stretch;
+}
+.compass-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* La card è alta quanto gli orari: centra la bussola */
+  gap: var(--space-4);
+}
+
 /* Bussola */
 /* Contenitore per la tacca (sta fuori dal cerchio) */
 .compass-wrap {
@@ -218,10 +235,8 @@
 .qibla-button {
   align-self: stretch;
 }
-/* Sempre in fondo */
 .compass-help {
   max-width: 320px;
-  margin-top: auto;
   font-size: var(--fs-sm);
 }
 .compass-help summary {

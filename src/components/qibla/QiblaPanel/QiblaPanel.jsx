@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCompass } from "../../../hooks/useCompass.js";
 import { angleDifference, calculateQiblaBearing, distanceToKaaba, magneticDeclination } from "../../../utils/qibla.js";
+import { CalibrationGuide } from "../CalibrationGuide/CalibrationGuide.jsx";
 import "./QiblaPanel.css";
 
 // Entro questi gradi considero il telefono allineato
@@ -14,6 +15,18 @@ const kmFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 0 })
 export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
   const compass = useCompass();
   const helpRef = useRef(null);
+  const bodyRef = useRef(null);
+
+  // Guida calibrazione: torna a ogni apertura della Qibla
+  // Aggiorno lo stato durante il render, come consiglia la guida di React
+  const [showGuide, setShowGuide] = useState(true);
+  if (hidden && !showGuide) setShowGuide(true);
+
+  // Chiusa la guida, focus sul primo pulsante della bussola
+  function closeGuide() {
+    setShowGuide(false);
+    requestAnimationFrame(() => bodyRef.current?.querySelector("button, summary")?.focus({ preventScroll: true }));
+  }
 
   // Girando la card chiudi "Direzione imprecisa?"
   useEffect(() => {
@@ -38,8 +51,7 @@ export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
   const rotation = compass.heading === null ? 0 : compass.rotation + declination;
 
   const active = heading !== null;
-  const aligned =
-    active && bearing !== null && Math.abs(angleDifference(heading, bearing)) <= ALIGNED_TOLERANCE;
+  const aligned = active && bearing !== null && Math.abs(angleDifference(heading, bearing)) <= ALIGNED_TOLERANCE;
 
   // Piccola vibrazione quando ti allinei (solo Android)
   const wasAligned = useRef(false);
@@ -70,82 +82,94 @@ export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
     >
       <div className="prayer-card-heading">
         <h3 id="qibla-heading">Qibla</h3>
-        <button ref={closeButtonRef} className="card-switch" type="button" aria-controls="prayer-card-front" onClick={onClose}>
+        <button
+          ref={closeButtonRef}
+          className="card-switch"
+          type="button"
+          aria-controls="prayer-card-front"
+          onClick={onClose}
+        >
           Torna agli orari
         </button>
       </div>
       <p className="qibla-location">{location ? location.name : "In attesa della posizione"}</p>
 
-      <div className="compass-wrap">
-        {/* Tacca in alto = direzione del telefono */}
-        <span className="compass-pointer" aria-hidden="true"></span>
+      <div className="compass-area">
+        {showGuide && <CalibrationGuide onDone={closeGuide} />}
 
-        <div className="compass" role="img" aria-label={compassLabel}>
-          <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-rotation}deg)` }}>
-            <span className="compass-north">N</span>
-            <span className="compass-east">E</span>
-            <span className="compass-south">S</span>
-            <span className="compass-west">O</span>
-            <span className="compass-tick compass-tick-a"></span>
-            <span className="compass-tick compass-tick-b"></span>
-            <span className="compass-tick compass-tick-c"></span>
-            <span className="compass-tick compass-tick-d"></span>
+        <div ref={bodyRef} className="compass-body" inert={showGuide}>
+          <div className="compass-wrap">
+            {/* Tacca in alto = direzione del telefono */}
+            <span className="compass-pointer" aria-hidden="true"></span>
 
-            {/* Kaaba sulla sua direzione da nord */}
-            {bearing !== null && (
-              <span className="compass-kaaba" style={{ transform: `rotate(${bearing}deg)` }}>
+            <div className="compass" role="img" aria-label={compassLabel}>
+              <div className="compass-rose" aria-hidden="true" style={{ transform: `rotate(${-rotation}deg)` }}>
+                <span className="compass-north">N</span>
+                <span className="compass-east">E</span>
+                <span className="compass-south">S</span>
+                <span className="compass-west">O</span>
+                <span className="compass-tick compass-tick-a"></span>
+                <span className="compass-tick compass-tick-b"></span>
+                <span className="compass-tick compass-tick-c"></span>
+                <span className="compass-tick compass-tick-d"></span>
+
+                {/* Kaaba sulla sua direzione da nord */}
+                {bearing !== null && (
+                  <span className="compass-kaaba" style={{ transform: `rotate(${bearing}deg)` }}>
+                    <span></span>
+                  </span>
+                )}
+              </div>
+
+              <div
+                className="compass-needle"
+                style={bearing === null ? undefined : { transform: `rotate(${bearing - rotation}deg)` }}
+              >
                 <span></span>
-              </span>
-            )}
+              </div>
+              <span className="compass-center"></span>
+            </div>
           </div>
 
-          <div
-            className="compass-needle"
-            style={bearing === null ? undefined : { transform: `rotate(${bearing - rotation}deg)` }}
-          >
-            <span></span>
-          </div>
-          <span className="compass-center"></span>
+          <p className="qibla-status" aria-live="polite">
+            {message}
+          </p>
+
+          <dl className="qibla-stats">
+            <div>
+              <dt>Direzione</dt>
+              <dd>
+                <span className="qibla-degrees">{bearing === null ? "--°" : `${Math.round(bearing)}°`}</span> da nord
+              </dd>
+            </div>
+            <div>
+              <dt>Distanza</dt>
+              <dd>
+                <span className="qibla-degrees">{distance === null ? "--" : kmFormatter.format(distance)}</span> km
+              </dd>
+            </div>
+          </dl>
+
+          {!active && (
+            <button
+              className="button button-light qibla-button"
+              type="button"
+              disabled={compass.buttonDisabled}
+              onClick={compass.enable}
+            >
+              {compass.buttonLabel}
+            </button>
+          )}
+
+          <details ref={helpRef} className="compass-help">
+            <summary>Direzione imprecisa?</summary>
+            <p>
+              Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Tieni il telefono in
+              piano e muovilo lentamente disegnando un 8 nell’aria per alcuni secondi, poi controlla di nuovo.
+            </p>
+          </details>
         </div>
       </div>
-
-      <p className="qibla-status" aria-live="polite">
-        {message}
-      </p>
-
-      <dl className="qibla-stats">
-        <div>
-          <dt>Direzione</dt>
-          <dd>
-            <span className="qibla-degrees">{bearing === null ? "--°" : `${Math.round(bearing)}°`}</span> da nord
-          </dd>
-        </div>
-        <div>
-          <dt>Distanza</dt>
-          <dd>
-            <span className="qibla-degrees">{distance === null ? "--" : kmFormatter.format(distance)}</span> km
-          </dd>
-        </div>
-      </dl>
-
-      {!active && (
-        <button
-          className="button button-light qibla-button"
-          type="button"
-          disabled={compass.buttonDisabled}
-          onClick={compass.enable}
-        >
-          {compass.buttonLabel}
-        </button>
-      )}
-
-      <details ref={helpRef} className="compass-help">
-        <summary>Direzione imprecisa?</summary>
-        <p>
-          Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Tieni il telefono in piano
-          e muovilo lentamente disegnando un 8 nell’aria per alcuni secondi, poi controlla di nuovo.
-        </p>
-      </details>
     </section>
   );
 }

@@ -1,0 +1,76 @@
+/** GUIDA CALIBRAZIONE */
+/* Copre la bussola finché non premi il pulsante */
+.calibration-guide {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-2);
+  border-radius: var(--radius);
+  background: var(--sky-surface);
+  animation: calibration-enter var(--duration) var(--ease) both;
+}
+.calibration-animation {
+  width: min(240px, 100%);
+  overflow: visible;
+}
+.calibration-path {
+  fill: none;
+  stroke: var(--on-sky-line);
+  stroke-width: 2.5;
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+}
+.calibration-phone-body {
+  fill: var(--cloud);
+}
+.calibration-phone-screen {
+  fill: var(--soft-blue);
+}
+.calibration-phone-face {
+  fill: var(--sky-text);
+}
+.calibration-phone-smile {
+  fill: none;
+  stroke: var(--sky-text);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+.calibration-guide h4 {
+  margin: 0;
+  color: var(--cloud);
+  font: 400 var(--fs-title-sm) / 1.2 var(--font-display);
+  text-transform: uppercase;
+}
+.calibration-guide p {
+  max-width: 300px;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+.calibration-guide .calibration-tip {
+  font-size: var(--fs-xs);
+  opacity: 0.85;
+}
+.calibration-button {
+  align-self: stretch;
+  margin-top: var(--space-2);
+}
+@keyframes calibration-enter {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .calibration-guide {
+    animation: none;
+  }
+  /* Telefono fermo al centro dell'8 */
+  .calibration-phone {
+    transform: translate(100px, 50px);
+  }
+}
