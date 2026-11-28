@@ -3,11 +3,12 @@ import { useMediaQuery } from "../../../hooks/useMediaQuery.js";
 import "./CalibrationGuide.css";
 
 // Durata di un giro dell'8
-const DURATION = "3.6s";
-const SMOOTH = "0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1";
+const DURATION = "4s";
+const KEY_TIMES = "0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1";
+const SMOOTH = Array(8).fill("0.4 0 0.6 1").join(";");
 
-// Percorso a forma di 8 (orizzontale)
-const EIGHT_PATH = "M100 50 C130 12 178 12 178 50 C178 88 130 88 100 50 C70 12 22 12 22 50 C22 88 70 88 100 50 Z";
+// Percorso a forma di 8 (dritto)
+const EIGHT_PATH = "M50 80 C88 50 88 8 50 8 C12 8 12 50 50 80 C88 110 88 152 50 152 C12 152 12 110 50 80 Z";
 
 // =========================
 // GUIDA CALIBRAZIONE
@@ -20,7 +21,7 @@ export function CalibrationGuide({ onDone }) {
 
   return (
     <section className="calibration-guide" aria-labelledby={titleId}>
-      <svg className="calibration-animation" viewBox="0 0 200 100" aria-hidden="true">
+      <svg className="calibration-animation" viewBox="0 -12 100 184" aria-hidden="true">
         <path id={pathId} className="calibration-path" d={EIGHT_PATH} />
 
         {/* Telefono sorridente che disegna l'8 */}
@@ -30,14 +31,14 @@ export function CalibrationGuide({ onDone }) {
           <circle cx="-4" cy="-4" r="1.6" className="calibration-phone-face" />
           <circle cx="4" cy="-4" r="1.6" className="calibration-phone-face" />
           <path d="M-4.5 2 Q0 6.5 4.5 2" className="calibration-phone-smile" />
-          {/* Sempre inclinato: al centro pende verso dove va, in fondo alle curve gira di faccia (si vede di lato) */}
+          {/* Sempre inclinato: pende verso dove va, ai lati dell'8 gira di faccia (si vede di lato) */}
           {!reducedMotion && (
             <>
               <animateTransform
                 attributeName="transform"
                 type="rotate"
-                values="50;0;-50;0;50"
-                keyTimes="0;0.25;0.5;0.75;1"
+                values="45;0;-45;0;45;0;-45;0;45"
+                keyTimes={KEY_TIMES}
                 calcMode="spline"
                 keySplines={SMOOTH}
                 dur={DURATION}
@@ -47,8 +48,8 @@ export function CalibrationGuide({ onDone }) {
                 attributeName="transform"
                 type="scale"
                 additive="sum"
-                values="1 1;0.25 1;1 1;0.25 1;1 1"
-                keyTimes="0;0.25;0.5;0.75;1"
+                values="1 1;0.25 1;1 1;0.25 1;1 1;0.25 1;1 1;0.25 1;1 1"
+                keyTimes={KEY_TIMES}
                 calcMode="spline"
                 keySplines={SMOOTH}
                 dur={DURATION}

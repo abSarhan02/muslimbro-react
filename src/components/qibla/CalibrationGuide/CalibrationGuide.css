@@ -15,7 +15,7 @@
   animation: calibration-enter var(--duration) var(--ease) both;
 }
 .calibration-animation {
-  width: min(240px, 100%);
+  width: min(110px, 100%);
   overflow: visible;
 }
 .calibration-path {
@@ -71,6 +71,6 @@
   }
   /* Telefono fermo al centro dell'8 */
   .calibration-phone {
-    transform: translate(100px, 50px);
+    transform: translate(50px, 80px);
   }
 }
