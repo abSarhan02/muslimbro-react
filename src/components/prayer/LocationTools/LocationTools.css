@@ -32,3 +32,28 @@
   margin: var(--space-1) 0 0;
   font-size: var(--fs-sm);
 }
+
+/* Posizione bloccata: riquadro ben visibile */
+.location-blocked {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--on-sky-line);
+  border-radius: var(--radius-sm);
+  background: var(--on-sky-tint);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.location-blocked p,
+.location-blocked ol {
+  margin: 0 0 var(--space-2);
+}
+.location-blocked ol {
+  padding-left: 1.25em;
+}
+.location-blocked li + li {
+  margin-top: var(--space-1);
+}
+.location-blocked .location-blocked-title {
+  color: var(--cloud);
+  font-weight: 700;
+}

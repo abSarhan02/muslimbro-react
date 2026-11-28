@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { PageLayout } from "../../components/layout/PageLayout/PageLayout.jsx";
 import { PageTitle } from "../../components/layout/PageTitle/PageTitle.jsx";
 import { usePageTitle } from "../../hooks/usePageTitle.js";
+import "./NotFoundPage.css";
 
 // Pagina 404
 export function NotFoundPage() {
@@ -17,9 +18,11 @@ export function NotFoundPage() {
     >
       {/* Google non deve indicizzare gli indirizzi sbagliati (React lo mette nel head) */}
       <meta name="robots" content="noindex" />
-      <p className="empty-state">
-        <Link to="/">Torna alla home</Link>
-      </p>
+      <div className="not-found">
+        <Link className="button button-primary" to="/">
+          Torna alla home
+        </Link>
+      </div>
     </PageLayout>
   );
 }
