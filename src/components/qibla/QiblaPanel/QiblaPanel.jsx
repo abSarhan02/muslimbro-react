@@ -164,9 +164,9 @@ export function QiblaPanel({ location, hidden, closeButtonRef, onClose }) {
           <details ref={helpRef} className="compass-help">
             <summary>Direzione imprecisa?</summary>
             <p>
-              Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Tieni il telefono
-              dritto e disegna lentamente un 8 nell’aria, inclinandolo seguendo la curva, per alcuni secondi. Poi
-              rimettilo in piano e controlla di nuovo.
+              Allontanati da metalli, calamite e dispositivi elettronici (anche cover con magnete). Disegna lentamente
+              un 8 nell’aria e intanto ruota il telefono, inclinandolo e girandolo di faccia lungo la curva, per alcuni
+              secondi. Poi rimettilo in piano e controlla di nuovo.
             </p>
           </details>
         </div>
