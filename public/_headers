@@ -14,3 +14,27 @@ https://:project.pages.dev/*
 
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
+
+# ===== CACHE =====
+# Le regole che corrispondono vengono unite, non sostituite:
+# per questo /* non ha Cache-Control (finirebbe anche sugli asset)
+# HTML: sempre ricontrollato (le altre pagine hanno già max-age=0 di Pages)
+/index.html
+  Cache-Control: no-cache
+
+# File di Vite con l'hash nel nome: non cambiano mai
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Icone e manifest: un giorno
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400
