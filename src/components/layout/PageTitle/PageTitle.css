@@ -9,7 +9,10 @@
 .page-title-ar {
   margin: 0 0 var(--space-2);
   color: var(--cloud);
-  font: 500 clamp(1.75rem, 1.4rem + 1.4vw, 2.375rem) / 1.6 var(--font-arabic);
+  /* Amiri come la scritta del Corano in home */
+  font:
+    700 clamp(2rem, 1.6rem + 1.4vw, 2.625rem) / 1.6 "Amiri",
+    var(--font-arabic);
 }
 .page-title h1 {
   margin: 0;
