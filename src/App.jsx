@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+import { InAppBanner } from "./components/common/InAppBanner/InAppBanner.jsx";
 import { ScrollToTop } from "./components/layout/ScrollToTop/ScrollToTop.jsx";
 import { AzkarPage } from "./pages/AzkarPage/AzkarPage.jsx";
 import { HomePage } from "./pages/HomePage/HomePage.jsx";
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <InAppBanner />
     </>
   );
 }

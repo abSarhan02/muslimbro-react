@@ -23,6 +23,26 @@ window.addEventListener("vite:preloadError", (event) => {
   window.location.reload();
 });
 
+// ===== BROWSER DI INSTAGRAM (ANDROID) =====
+// Apri il sito nel browser del telefono (bussola e posizione funzionano meglio)
+// Una volta sola per sessione: se non riesce resto qui, niente loop
+const INTENT_KEY = "muslimbro-open-browser";
+const inAppAndroid = /Instagram|FBAN|FBAV/.test(navigator.userAgent) && /Android/.test(navigator.userAgent);
+
+if (inAppAndroid) {
+  try {
+    if (!sessionStorage.getItem(INTENT_KEY)) {
+      sessionStorage.setItem(INTENT_KEY, "1");
+      const { host, pathname, search, hash } = window.location;
+      window.location.replace(
+        `intent://${host}${pathname}${search}${hash}#Intent;scheme=https;action=android.intent.action.VIEW;end`,
+      );
+    }
+  } catch {
+    // Senza sessionStorage resto nel browser di Instagram
+  }
+}
+
 // ===== LANCIO =====
 // Su muslimbro.it fino al lancio si vede solo il countdown (la beta resta il sito completo)
 const LAUNCH_AT = new Date("2026-11-28T19:00:00+01:00").getTime();
