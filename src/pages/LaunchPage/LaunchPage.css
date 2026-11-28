@@ -11,9 +11,17 @@
   color: var(--hero-text);
   text-align: center;
 }
-.launch-brand {
+/* Logo bianco come nella navbar sopra la hero */
+.launch .launch-brand {
   margin: 0;
-  font: 400 var(--fs-title) / 1 var(--font-display);
+  color: var(--cloud);
+  font-size: 2.25rem;
+}
+.launch-brand .brand-dot {
+  color: var(--cloud);
+}
+.launch-brand .brand-mark {
+  background: var(--cloud);
 }
 .launch h1 {
   max-width: 14ch;

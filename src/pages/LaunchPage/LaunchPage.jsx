@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../../components/common/Brand/Brand.css";
 import "./LaunchPage.css";
 
 // Due cifre (es. 05)
@@ -27,7 +28,13 @@ export function LaunchPage({ launchAt }) {
 
   return (
     <main className="launch">
-      <p className="launch-brand">muslimbro.</p>
+      {/* Logo come nella navbar (senza link: qui non c'è il router) */}
+      <p className="brand launch-brand">
+        <span className="brand-mark" aria-hidden="true" />
+        <span>
+          muslimbro<span className="brand-dot">.</span>
+        </span>
+      </p>
       <h1>Il nuovo sito sta arrivando</h1>
       <p className="launch-text">Orari di preghiera, Qibla, Corano e Azkar, tutto rinnovato. Ci vediamo alle 19:00.</p>
 
