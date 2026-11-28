@@ -27,6 +27,7 @@ export function useCompass() {
   const [buttonLabel, setButtonLabel] = useState("Attiva bussola");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [poorAccuracy, setPoorAccuracy] = useState(false);
+  const [debug, setDebug] = useState(null);
 
   const headingRef = useRef(null);
   const rotationRef = useRef(0);
@@ -34,6 +35,7 @@ export function useCompass() {
   const frameRef = useRef(0);
   const listeningRef = useRef(false);
   const absoluteRef = useRef(false); // arrivano eventi "deviceorientationabsolute"
+  const debugRef = useRef(null); // dati grezzi del sensore (?debug)
 
   // Chiamata quando il telefono si muove
   const handleOrientation = useCallback((event) => {
@@ -43,6 +45,17 @@ export function useCompass() {
 
     const value = headingFromOrientation(event, screenAngle());
     if (value === null) return;
+
+    debugRef.current = {
+      type: event.type,
+      absolute: event.absolute,
+      alpha: event.alpha,
+      beta: event.beta,
+      gamma: event.gamma,
+      webkit: event.webkitCompassHeading,
+      screen: screenAngle(),
+      raw: value,
+    };
 
     const firstReading = headingRef.current === null;
     const previous = headingRef.current;
@@ -55,6 +68,7 @@ export function useCompass() {
         frameRef.current = 0;
         setHeading(headingRef.current);
         setRotation(rotationRef.current);
+        setDebug(debugRef.current);
       });
     }
 
@@ -135,5 +149,5 @@ export function useCompass() {
     }, COMPASS_TIMEOUT);
   }
 
-  return { heading, rotation, status, poorAccuracy, buttonLabel, buttonDisabled, enable };
+  return { heading, rotation, status, poorAccuracy, buttonLabel, buttonDisabled, enable, debug };
 }
